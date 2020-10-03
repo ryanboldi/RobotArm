@@ -1,13 +1,11 @@
 class Arm {
     constructor() {
         this.hinges = 2;
-        this.armSegLength = 150;
+        this.armSegLength = 200;
         this.armSegWidth = 20;
 
         this.theta1 = 0;
         this.theta2 = 0;
-        this.theta3 = 0;
-
 
         this.timeCounter = 0;
     }
@@ -30,14 +28,10 @@ class Arm {
         translate(this.armSegLength, 0);
         rotate(this.theta2);
         line(0, 0, this.armSegLength, 0);
-        translate(this.armSegLength, 0);
-        rotate(this.theta3);
-        line(0, 0, this.armSegLength, 0);
         pop();
 
         this.theta1 = this.getTheta1();
         this.theta2 = this.getTheta2();
-        this.theta3 = this.getTheta3();
         this.timeCounter++;
     }
 
@@ -47,9 +41,6 @@ class Arm {
 
     getTheta2() {
         //return 0;
-        return -this.timeCounter / 100;
-    }
-    getTheta3() {
-        return this.timeCounter / 100;
+        return this.timeCounter / 50;
     }
 }
