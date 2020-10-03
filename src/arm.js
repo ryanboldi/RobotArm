@@ -5,7 +5,8 @@ class Arm {
         this.armSegWidth = 20;
 
         this.theta1 = 0;
-        this.theta2 = PI / 2;
+        this.theta2 = 0;
+
 
         this.timeCounter = 0;
     }
@@ -14,30 +15,24 @@ class Arm {
         let platformX = WIDTH / 2;
         let platformY = 600;
 
-        let arm1Length = this.armSegLength;
-        let arm1Width = this.armSegWidth;
 
-        noStroke();
+        //noStroke();
         fill(0);
         rectMode(CENTER);
         rect(platformX, platformY, 200, 20);
 
         push();
-        //move to center
         translate(platformX, platformY);
-        rotate(this.theta1 + (PI / 2));
-        translate(-platformX, -platformY);
-        rect(platformX, platformY - (arm1Length / 2), arm1Width, arm1Length);
-        pop();
-
-        push();
-        fill(45, 0, 0);
-        translate((arm1Length * 1.5 * Math.cos(this.theta1)) + platformX, (arm1Length * 1.5 * Math.sin(this.theta1)) + platformY);
-        rotate(this.theta1 + (PI / 2));
-        rect(0, 0, arm1Width, arm1Length);
+        rotate(this.theta1);
+        strokeWeight(this.armSegWidth);
+        line(0, 0, this.armSegLength, 0);
+        translate(this.armSegLength, 0);
+        rotate(this.theta2);
+        line(0, 0, this.armSegLength, 0);
         pop();
 
         this.theta1 = this.getTheta1();
+        this.theta2 = this.getTheta2();
         this.timeCounter++;
     }
 
