@@ -30,17 +30,29 @@ class Arm {
         line(0, 0, this.armSegLength, 0);
         pop();
 
+        //moves to the TIP of the second hand
+        push();
+        fill(255, 0, 0);
+        translate(platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1))), platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1))));
+        ellipse(0, 0, 10, 10);
+        pop();
+
+
+
         this.theta1 = this.getTheta1();
         this.theta2 = this.getTheta2();
         this.timeCounter++;
+
+
     }
 
     getTheta1() {
-        return this.timeCounter / 100;
+        //return 0;
+        return this.timeCounter / 30;
     }
 
     getTheta2() {
         //return 0;
-        return this.timeCounter / 50;
+        return this.timeCounter / 30;
     }
 }
