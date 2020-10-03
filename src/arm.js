@@ -5,7 +5,7 @@ class Arm {
         this.armSegWidth = 20;
 
         this.theta1 = 0;
-        this.theta2 = 0;
+        this.theta2 = PI / 2;
 
         this.timeCounter = 0;
     }
@@ -31,7 +31,8 @@ class Arm {
         pop();
 
         push();
-        translate(arm1Length * Math.cos(this.theta1), arm1Length * Math.sin(this.theta1));
+        fill(45, 0, 0);
+        translate((arm1Length * 1.5 * Math.cos(this.theta1)) + platformX, (arm1Length * 1.5 * Math.sin(this.theta1)) + platformY);
         rotate(this.theta1 + (PI / 2));
         rect(0, 0, arm1Width, arm1Length);
         pop();
@@ -41,11 +42,10 @@ class Arm {
     }
 
     getTheta1() {
-        return 0;
-        //return this.timeCounter / 10;
+        return this.timeCounter / 100;
     }
 
     getTheta2() {
-        return this.timeCounter / 10;
+        return this.timeCounter / 100;
     }
 }
