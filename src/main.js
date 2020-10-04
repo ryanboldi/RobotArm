@@ -19,3 +19,7 @@ function draw() {
     ellipse(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT);
     a.draw();
 }
+
+function sigmoid(t) {
+    return 1/(1+Math.pow(Math.E, -t));
+}

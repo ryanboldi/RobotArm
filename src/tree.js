@@ -14,15 +14,12 @@ class Tree{
         let ran = random();
         if (ran < 0.3){
             return(`(${random(this.terminals)} ${random(this.functions)} ${random(this.terminals)})`);
-        } else if (ran < 0.6){
+        } else if (ran < 0.3){
             return(`${random(this.semifunctions)}(${random(this.terminals)}, ${random(this.terminals)})`);
-        } else if (ran < 0.9){
-            return(`${random(this.semifunctions)}(${random(this.terminals)})`)
+        } else if (ran < 0.95){
+            return(`${random(this.semiterminals)}(${random(this.terminals)})`)
         } else{
             return(`${random(this.terminals)}`);
         }
-    }
-
-    feedForward(){
     }
 }

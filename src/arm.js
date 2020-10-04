@@ -8,8 +8,9 @@ class Arm {
         this.theta1Tree = new Tree();
 
         this.theta2 = 0;
+        this.theta2Tree = new Tree();
 
-        this.timeCounter = 0;
+        this.timeCounter = 1;
     }
 
     draw() {
@@ -19,7 +20,7 @@ class Arm {
         //noStroke();
         fill(0);
         rectMode(CENTER);
-        rect(platformX, platformY, 200, 20);
+        rect(platformX, platformY, 30, 20);
 
         push();
         translate(platformX, platformY);
@@ -34,11 +35,9 @@ class Arm {
         //moves to the TIP of the second hand
         push();
         fill(255, 0, 0);
-        translate(platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1))), platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1))));
-        ellipse(0, 0, 10, 10);
+        //translate(platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1))), platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1))));
+        ellipse(platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1))), platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1))), 10, 10);
         pop();
-
-
 
         this.theta1 = this.getTheta1();
         this.theta2 = this.getTheta2();
@@ -47,15 +46,19 @@ class Arm {
 
     getTheta1() {
         //return 0;
-        let e = nerdamer(this.theta1Tree.equation, {t:this.timeCounter});
-        return (e.text()/10);
+        let e = nerdamer(this.theta1Tree.equation, {t:this.timeCounter/100}).evaluate();
+        //console.log(e.text());
+        return (e.text());
         //return (this.timeCounter / 20);
 
     }
 
     getTheta2() {
         //return 0;
-        return (this.timeCounter / 10);
+        let e = nerdamer(this.theta2Tree.equation, {t:this.timeCounter/100}).evaluate();
+        //console.log(e.text());
+        return (e.text());
+        //return (this.timeCounter / 10);
 
     }
 }
