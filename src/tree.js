@@ -3,7 +3,7 @@ class Tree{
         this.functions = ['+','-','/','*'];
         this.semifunctions = ['min', 'max'];
         this.semiterminals = ['sin', 'cos', 'tan','atan','asin','acos', 'abs'];
-        this.terminals = ['t', '1', '2', Math.PI.toString()];
+        this.terminals = ['t', this.getRandomEquation()];
 
         this.equation = this.getRandomEquation();
         console.log(this.equation);
@@ -11,7 +11,16 @@ class Tree{
 
     getRandomEquation(){
         //pick two random functions, if trig function,
-        return(`(${random(this.terminals)} ${random(this.functions)} ${random(this.terminals)})`)
+        let ran = random();
+        if (ran < 0.3){
+            return(`(${random(this.terminals)} ${random(this.functions)} ${random(this.terminals)})`);
+        } else if (ran < 0.6){
+            return(`${random(this.semifunctions)}(${random(this.terminals)}, ${random(this.terminals)})`);
+        } else if (ran < 0.9){
+            return(`${random(this.semifunctions)}(${random(this.terminals)})`)
+        } else{
+            return(`${random(this.terminals)}`);
+        }
     }
 
     feedForward(){

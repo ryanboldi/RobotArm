@@ -7,10 +7,10 @@ let t;
 function setup() {
     createCanvas(WIDTH, HEIGHT);
     a = new Arm();
-    t = new Tree();
+    //t = new Tree();
     
-    let e = nerdamer('(3+v)*(v*v)');
-    console.log(e.text());
+    //let e = nerdamer('(3+v)*(v*v)');
+    //console.log(e.text());
 }
 
 function draw() {

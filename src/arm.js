@@ -5,6 +5,8 @@ class Arm {
         this.armSegWidth = 20;
 
         this.theta1 = 0;
+        this.theta1Tree = new Tree();
+
         this.theta2 = 0;
 
         this.timeCounter = 0;
@@ -45,7 +47,10 @@ class Arm {
 
     getTheta1() {
         //return 0;
-        return (this.timeCounter / 20);
+        let e = nerdamer(this.theta1Tree.equation, {t:this.timeCounter});
+        return (e.text()/10);
+        //return (this.timeCounter / 20);
+
     }
 
     getTheta2() {
