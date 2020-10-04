@@ -2,7 +2,7 @@ class Tree{
     constructor(){
         this.functions = ['+','-','/','*'];
         this.semifunctions = ['min', 'max'];
-        this.semiterminals = ['sin', 'cos', 'tan','atan','asin','acos', 'abs'];
+        this.semiterminals = ['sin', 'cos', 'tan', 'cosh', 'sinh', 'tanh'];
         this.terminals = ['t', this.getRandomEquation()];
 
         this.equation = this.getRandomEquation();
