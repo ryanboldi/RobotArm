@@ -20,15 +20,15 @@ class Arm {
         //noStroke();
         fill(0);
         rectMode(CENTER);
-        rect(platformX, platformY, 30, 20);
+        //rect(platformX, platformY, 30, 20);
 
         push();
         translate(platformX, platformY);
-        rotate(this.theta1);
+        rotate(-this.theta1);
         strokeWeight(this.armSegWidth);
         line(0, 0, this.armSegLength, 0);
         translate(this.armSegLength, 0);
-        rotate(this.theta2);
+        rotate(-this.theta2);
         line(0, 0, this.armSegLength, 0);
         pop();
 
@@ -42,12 +42,15 @@ class Arm {
 
         this.theta1 = this.getTheta1();
         this.theta2 = this.getTheta2();
+
+        console.log(this.theta1);
+        console.log(this.theta2);
         this.timeCounter++;
     }
 
     getTheta1() {
-        //return 0;
-        let e = nerdamer(this.theta1Tree.equation, {t:this.timeCounter/100}).evaluate();
+        //return PI/2;
+        let e = nerdamer(this.theta1Tree.equation, {t:this.timeCounter/50}).evaluate();
         //console.log(e.text());
         return (e.text());
         //return (this.timeCounter / 20);
@@ -56,7 +59,7 @@ class Arm {
 
     getTheta2() {
         //return 0;
-        let e = nerdamer(this.theta2Tree.equation, {t:this.timeCounter/100}).evaluate();
+        let e = nerdamer(this.theta2Tree.equation, {t:this.timeCounter/50}).evaluate();
         //console.log(e.text());
         return (e.text());
         //return (this.timeCounter / 10);
