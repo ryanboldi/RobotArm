@@ -13,8 +13,7 @@ class Arm {
     draw() {
         let platformX = WIDTH / 2;
         let platformY = 400;
-
-
+        
         //noStroke();
         fill(0);
         rectMode(CENTER);
