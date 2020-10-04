@@ -1,13 +1,19 @@
 class Tree{
     constructor(){
-        this.nodes = [];
-        this.nodes.push(new TreeNode(0, (a,b) => {return a + b}, NaN, NaN));
-        this.nodes.push(new TreeNode(1, 3, 0, NaN));
-        this.nodes.push(new TreeNode(2, 2, 0, NaN));
+        this.functions = ['+','-','/','*'];
+        this.semifunctions = ['min', 'max'];
+        this.semiterminals = ['sin', 'cos', 'tan','atan','asin','acos', 'abs'];
+        this.terminals = ['t', '1', '2', Math.PI.toString()];
+
+        this.equation = this.getRandomEquation();
+        console.log(this.equation);
     }
 
-    feedForward(t = 0){
-        let e = nerdamer("(3+v)*(v*v)", {v=t}).evaluate();
-        console.log(e);
+    getRandomEquation(){
+        //pick two random functions, if trig function,
+        return(`(${random(this.terminals)} ${random(this.functions)} ${random(this.terminals)})`)
+    }
+
+    feedForward(){
     }
 }
