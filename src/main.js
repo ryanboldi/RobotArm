@@ -2,15 +2,14 @@ const WIDTH = 800,
     HEIGHT = 800;
 
 let a;
-
 let t;
 
 function setup() {
     createCanvas(WIDTH, HEIGHT);
     a = new Arm();
-    frameRate(240);
-    t = new Tree();
-    t.feedForward();
+    
+    let e = nerdamer("(3+v)*(v*v)", {v:4}).evaluate();
+    console.log(e);
 }
 
 function draw() {

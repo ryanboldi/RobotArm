@@ -6,7 +6,8 @@ class Tree{
         this.nodes.push(new TreeNode(2, 2, 0, NaN));
     }
 
-    feedForward(v = 0){
-        console.log(Math.evaluate("(5 * 5) + (3 + 4)"));
+    feedForward(t = 0){
+        let e = nerdamer("(3+v)*(v*v)", {v=t}).evaluate();
+        console.log(e);
     }
 }
