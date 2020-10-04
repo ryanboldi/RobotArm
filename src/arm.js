@@ -43,8 +43,8 @@ class Arm {
         this.theta1 = this.getTheta1();
         this.theta2 = this.getTheta2();
 
-        console.log(this.theta1);
-        console.log(this.theta2);
+        //console.log(this.theta1);
+        //console.log(this.theta2);
         this.timeCounter++;
     }
 
@@ -52,7 +52,7 @@ class Arm {
         //return this.timeCounter/100;
         let e = nerdamer(this.theta1Tree.equation, {t:this.timeCounter/50}).evaluate();
         //console.log(e.text());
-        return (e.text());
+        return (e);
         //return (this.timeCounter / 20);
 
     }
@@ -61,7 +61,7 @@ class Arm {
         //return -this.timeCounter/100 ;
         let e = nerdamer(this.theta2Tree.equation, {t:this.timeCounter/50}).evaluate();
         //console.log(e.text());
-        return (e.text());
+        return (e);
         //return (this.timeCounter / 10);
 
     }
