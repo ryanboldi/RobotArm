@@ -13,7 +13,7 @@ class Arm {
     draw() {
         let platformX = WIDTH / 2;
         let platformY = 400;
-        
+
         //noStroke();
         fill(0);
         rectMode(CENTER);
@@ -41,8 +41,6 @@ class Arm {
         this.theta1 = this.getTheta1();
         this.theta2 = this.getTheta2();
         this.timeCounter++;
-
-
     }
 
     getTheta1() {

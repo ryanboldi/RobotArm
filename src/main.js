@@ -3,10 +3,14 @@ const WIDTH = 800,
 
 let a;
 
+let t;
+
 function setup() {
     createCanvas(WIDTH, HEIGHT);
     a = new Arm();
     frameRate(240);
+    t = new Tree();
+    t.feedForward();
 }
 
 function draw() {
