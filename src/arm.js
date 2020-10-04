@@ -24,11 +24,11 @@ class Arm {
 
         push();
         translate(platformX, platformY);
-        rotate(-this.theta1);
+        rotate(this.theta1);
         strokeWeight(this.armSegWidth);
         line(0, 0, this.armSegLength, 0);
         translate(this.armSegLength, 0);
-        rotate(-this.theta2);
+        rotate(this.theta2);
         line(0, 0, this.armSegLength, 0);
         pop();
 
@@ -49,7 +49,7 @@ class Arm {
     }
 
     getTheta1() {
-        //return PI/2;
+        //return this.timeCounter/100;
         let e = nerdamer(this.theta1Tree.equation, {t:this.timeCounter/50}).evaluate();
         //console.log(e.text());
         return (e.text());
@@ -58,7 +58,7 @@ class Arm {
     }
 
     getTheta2() {
-        //return 0;
+        //return -this.timeCounter/100 ;
         let e = nerdamer(this.theta2Tree.equation, {t:this.timeCounter/50}).evaluate();
         //console.log(e.text());
         return (e.text());
