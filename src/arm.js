@@ -48,11 +48,12 @@ class Arm {
 
     getTheta1() {
         //return 0;
-        return (this.timeCounter / 50);
+        return (this.timeCounter / 20);
     }
 
     getTheta2() {
         //return 0;
-        return (this.timeCounter / 30);
+        return (this.timeCounter / 10);
+
     }
 }
