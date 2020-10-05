@@ -23,7 +23,7 @@ class Tree{
 
         if (term1Rand < 0.4){
             t1 = 't'
-        } else if (term1Rand < 0.8){
+        } else if (term1Rand < 0.6){
             t1 = `${random(this.semiterminals)}(${random(this.terminals)})`
         } else if (term1Rand < 1) {
             t1 = this.getRandomEquation().toString();
@@ -31,7 +31,7 @@ class Tree{
 
         if (term2Rand < 0.4){
             t2 = 't'
-        } else if (term2Rand < 0.8){
+        } else if (term2Rand < 0.6){
             t2 = `${random(this.semiterminals)}(${random(this.terminals)})`
         } else if (term2Rand < 1) {
             t2 = this.getRandomEquation().toString();
