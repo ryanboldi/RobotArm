@@ -50,7 +50,7 @@ class Arm {
 
     getTheta1() {
         //return this.timeCounter/100;
-        let e = nerdamer(this.theta1Tree.equation, {t:this.timeCounter/50}).evaluate();
+        let e = nerdamer(this.theta1Tree.equation, {t:this.timeCounter/100}, 'numer').evaluate();
         //console.log(e.text());
         return (e);
         //return (this.timeCounter / 20);
@@ -59,7 +59,7 @@ class Arm {
 
     getTheta2() {
         //return -this.timeCounter/100 ;
-        let e = nerdamer(this.theta2Tree.equation, {t:this.timeCounter/50}).evaluate();
+        let e = nerdamer(this.theta2Tree.equation, {t:this.timeCounter/100}, 'numer').evaluate();
         //console.log(e.text());
         return (e);
         //return (this.timeCounter / 10);
