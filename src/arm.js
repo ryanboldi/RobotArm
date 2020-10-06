@@ -18,6 +18,12 @@ class Arm {
         this.theta4 = 0;
         this.theta4Tree = new Tree();
 
+        this.theta5 = 0;
+        this.theta5Tree = new Tree();
+
+        this.theta6 = 0;
+        this.theta6Tree = new Tree();
+
         this.timeCounter = 1;
     }
 
@@ -43,6 +49,12 @@ class Arm {
         line(0, 0, this.armSegLength, 0);
         translate(this.armSegLength, 0);
         rotate(this.theta4);
+        line(0, 0, this.armSegLength, 0);
+        translate(this.armSegLength, 0);
+        rotate(this.theta5);
+        line(0, 0, this.armSegLength, 0);
+        translate(this.armSegLength, 0);
+        rotate(this.theta6);
         line(0, 0, this.armSegLength, 0);
         pop();
 
@@ -81,7 +93,7 @@ class Arm {
         
         this.theta3 += theta3Dif;
 
-        let theta4Dif = this.getTheta4() - this.theta3;
+        let theta4Dif = this.getTheta4() - this.theta4;
         if (theta4Dif > this.maxSpeed){
             theta4Dif = this.maxSpeed;
         } else if (theta4Dif < (-this.maxSpeed)){
@@ -89,6 +101,24 @@ class Arm {
         }
         
         this.theta4 += theta4Dif;
+
+        let theta5Dif = this.getTheta5() - this.theta5;
+        if (theta5Dif > this.maxSpeed){
+            theta5Dif = this.maxSpeed;
+        } else if (theta5Dif < (-this.maxSpeed)){
+            theta5Dif = -this.maxSpeed;
+        }
+        
+        this.theta5 += theta5Dif;
+
+        let theta6Dif = this.getTheta6() - this.theta6;
+        if (theta6Dif > this.maxSpeed){
+            theta6Dif = this.maxSpeed;
+        } else if (theta6Dif < (-this.maxSpeed)){
+            theta6Dif = -this.maxSpeed;
+        }
+        
+        this.theta6 += theta6Dif;
 
         //console.log(this.theta1);
         //console.log(this.theta2);
@@ -125,6 +155,22 @@ class Arm {
     getTheta4() {
         //return -this.timeCounter/100 ;
         let e = nerdamer(this.theta4Tree.equation, {t:this.timeCounter/100}, 'numer').evaluate();
+        //console.log(e.text());
+        return (e);
+        //return (this.timeCounter / 10);
+
+    }
+    getTheta5() {
+        //return -this.timeCounter/100 ;
+        let e = nerdamer(this.theta5Tree.equation, {t:this.timeCounter/100}, 'numer').evaluate();
+        //console.log(e.text());
+        return (e);
+        //return (this.timeCounter / 10);
+
+    }
+    getTheta6() {
+        //return -this.timeCounter/100 ;
+        let e = nerdamer(this.theta6Tree.equation, {t:this.timeCounter/100}, 'numer').evaluate();
         //console.log(e.text());
         return (e);
         //return (this.timeCounter / 10);
