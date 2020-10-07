@@ -38,26 +38,26 @@ class Arm {
         push();
         fill(255, 0, 0);
         translate(platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1))), platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1))));
-        ellipse(0,0,10,10);
+        ellipse(0, 0, 10, 10);
         //ellipse(platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1))), platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1))), 10, 10);
         pop();
 
         let theta1Dif = this.getTheta1() - this.theta1;
-        if (theta1Dif > this.maxSpeed){
+        if (theta1Dif > this.maxSpeed) {
             theta1Dif = this.maxSpeed;
-        } else if (theta1Dif < (-this.maxSpeed)){
+        } else if (theta1Dif < (-this.maxSpeed)) {
             theta1Dif = -this.maxSpeed;
         }
 
         this.theta1 += theta1Dif;
-     
+
         let theta2Dif = this.getTheta2() - this.theta2;
-        if (theta2Dif > this.maxSpeed){
+        if (theta2Dif > this.maxSpeed) {
             theta2Dif = this.maxSpeed;
-        } else if (theta2Dif < (-this.maxSpeed)){
+        } else if (theta2Dif < (-this.maxSpeed)) {
             theta2Dif = -this.maxSpeed;
         }
-        
+
         this.theta2 += theta2Dif;
 
         //console.log(this.theta1);
@@ -66,23 +66,26 @@ class Arm {
     }
 
     getTheta1() {
-        //return this.timeCounter/100;
-        let e = nerdamer(_.cloneDeep(this.theta1Tree.equation), {t:this.timeCounter/100}, 'numer').evaluate();
-        //console.log(e.text());
-        return (e);
-        //return (this.timeCounter / 20); 
+        try {
+            let e = nerdamer(_.cloneDeep(this.theta1Tree.equation), { t: this.timeCounter / 100 }, 'numer').evaluate();
+        } catch (ParseError) {
+            //dividing by 0
+            let e = 1000;
+        }
+        return e;
     }
 
     getTheta2() {
-        //return -this.timeCounter/100 ;
-        let e = nerdamer(_.cloneDeep(this.theta2Tree.equation), {t:this.timeCounter/100}, 'numer').evaluate();
-        //console.log(e.text());
-        return (e);
-        //return (this.timeCounter / 10);
-
+        try {
+            let e = nerdamer(_.cloneDeep(this.theta2Tree.equation), { t: this.timeCounter / 100 }, 'numer').evaluate();
+        } catch (ParseError) {
+            //dividing by 0
+            let e = 1000;
+        }
+        return e;
     }
 
-    mutate(){
+    mutate() {
         this.theta1Tree.mutate();
         this.theta2Tree.mutate();
     }
