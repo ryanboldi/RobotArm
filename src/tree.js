@@ -125,6 +125,18 @@ class Tree{
                 let thisOpenBracks = findAllOccurances(this.equation.split(''), '(');
                 let otherOpenBracks = findAllOccurances(other.equation.split(''), '(');
                 console.log(thisOpenBracks, otherOpenBracks);
+
+                //pick a random brack, store how many open bracks to the right of it
+                let thisBrackIndexIndex = floor(random(thisOpenBracks.length));
+                let thisBrackIndex = thisOpenBracks[thisBrackIndexIndex]; //index of the brackets
+                let thisRightAmount = thisOpenBracks.length - thisBrackIndexIndex - 1; //how many open bracks to the right of this one
+
+                console.log(`tob ${thisOpenBracks}`)
+                console.log(`tbii ${thisBrackIndexIndex}`);
+                console.log(`tbi ${thisBrackIndex}`);
+                console.log(`tra ${thisRightAmount}`);
+
+                let otherBrackIndex = random(otherOpenBracks);
             }
         }
     }
