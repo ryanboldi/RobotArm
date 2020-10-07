@@ -4,7 +4,7 @@ class Arm {
         this.armSegLength = 200;
         this.armSegWidth = 20;
 
-        this.maxSpeed = 0.1; //radians per second
+        this.maxSpeed = 0.05; //radians per second
 
         this.theta1 = 0;
         this.theta1Tree = new Tree();
@@ -68,7 +68,7 @@ class Arm {
     getTheta1() {
         let e = 0;
         try {
-            e = nerdamer(_.cloneDeep(this.theta1Tree.equation), { t: this.timeCounter / 100 }, 'numer').evaluate();
+            e = nerdamer(_.cloneDeep(this.theta1Tree.equation), { t: this.maxSpeed * this.timeCounter / 10 }, 'numer').evaluate();
         } catch (ParseError) {
             //dividing by 0
             e = 1000;
@@ -79,7 +79,7 @@ class Arm {
     getTheta2() {
         let e = 0;
         try {
-            e = nerdamer(_.cloneDeep(this.theta2Tree.equation), { t: this.timeCounter / 100 }, 'numer').evaluate();
+            e = nerdamer(_.cloneDeep(this.theta2Tree.equation), { t: this.maxSpeed * this.timeCounter / 10 }, 'numer').evaluate();
         } catch (ParseError) {
             //dividing by 0
             e = 1000;
