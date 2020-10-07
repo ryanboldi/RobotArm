@@ -114,6 +114,20 @@ class Tree{
             }
         }
     }
+
+
+    crossover(other){
+        if (other instanceof Tree){
+            //pick crossover point, and swap everything within that function.
+            //eg sin(f(x)) X cos(g(x)) => sin(g(x))
+            //find all open brackets, pick one at random
+            if (this.equation.includes ('(') && other.equation.includes('(')){
+                let thisOpenBracks = findAllOccurances(this.equation.split(''), '(');
+                let otherOpenBracks = findAllOccurances(other.equation.split(''), '(');
+                console.log(thisOpenBracks, otherOpenBracks);
+            }
+        }
+    }
 }
 
 //finds all occurances of searchTerm in arr, returns index array
