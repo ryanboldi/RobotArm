@@ -122,56 +122,47 @@ class Tree {
             //eg sin(f(x)) X cos(g(x)) => sin(g(x))
             //find all open brackets, pick one at random
             if (this.equation.includes('(') && other.equation.includes('(')) {
-                let thisOpenBracks = findAllOccurances(this.equation.split(''), '(');
-                //console.log(thisOpenBracks);
 
-                //pick a random brack, store how many open bracks to the right of it
-                let thisBrackIndexIndex = floor(random(thisOpenBracks.length));
-                let thisBrackIndex = thisOpenBracks[thisBrackIndexIndex]; //index of the brackets
-                let thisRightAmount = thisOpenBracks.length - thisBrackIndexIndex - 1; //how many open bracks to the right of this one
+                let thisBracks = findAllBrackets(this.equation.split(''));
+                let thisBrackIndexes = thisBracks.indexArray;
+                let thisBrackTypes = thisBracks.bracketType;
 
-                //console.log(`tob ${thisOpenBracks}`)
-                //console.log(`tbii ${thisBrackIndexIndex}`);
-                //console.log(`tbi ${thisBrackIndex}`);
-                //console.log(`tra ${thisRightAmount}`);
+                console.log(thisBrackIndexes);
+
+                let thisRightBracksIndex = [];
+                for (let i = 0; i < thisBrackIndexes.length; i++) {
+                    if (thisBrackTypes[i] == '(') {
+                        thisRightBracksIndex.push(thisBrackIndexes[i]);
+                    }
+                }
+
+                let thisPickedLeft = random(thisRightBracksIndex); //pick a random left bracket starting point
+                let thisPickedRight; //corresponding right bracket
+
+                let thisEquationArr = _.cloneDeep(this.equation).split('');
+                let thisBracketTotal = 0;
+                for (let i = thisPickedLeft; i < thisEquationArr.length; i++) {
+                    if (thisEquationArr[i] == ')') {
+                        thisBracketTotal -= 1;
+                    } else if (thisEquationArr[i] == '(') {
+                        thisBracketTotal += 1;
+                    }
+                    if (thisBracketTotal == 0) {
+                        thisPickedRight = i;
+                        break;
+                    }
+                }
+
+                //test
+                console.log(this.equation.split('').splice(thisPickedLeft, (thisPickedRight - thisPickedLeft + 1)));
 
 
-
-                //select all text between this left bracket and the matching right bracket
-
-                //LEFT BRACKET'S INDEX = this.brackIndex
-                //for every right bracket, we count down till 0. when we reach 0, store this as the matching right bracket's location
-
-                let thisRightBracks = findAllOccurances(this.equation.split(''), ')', thisBrackIndex);
-                let thisRightBrackLocation = thisRightBracks[thisRightAmount]; //selects the corresponding right brackets location
-
-                console.log(`1) Open Bracket: ${thisBrackIndex}, Close Bracket: ${thisRightBrackLocation}`);
-
-                //console.log(`trb ${thisRightBracks}`);
-                //console.log(`trbl ${thisRightBrackLocation}`);
 
                 //do the same for the other creature, and then swap!
                 //THIS WILL BE RECEIVER, OTHER WILL BE DONOR
 
-                let otherOpenBracks = findAllOccurances(other.equation.split(''), '(');
-
-                //pick a random brack, store how many open bracks to the right of it
-                let otherBrackIndexIndex = floor(random(otherOpenBracks.length));
-                let otherBrackIndex = otherOpenBracks[otherBrackIndexIndex]; //index of the brackets
-                let otherRightAmount = otherOpenBracks.length - otherBrackIndexIndex - 1; //how many open bracks to the right of this one
-
-                let otherRightBracks = findAllOccurances(other.equation.split(''), ')', otherBrackIndex);
-                let otherRightBrackLocation = otherRightBracks[otherRightAmount]; //selects the corresponding right brackets location
 
 
-                console.log(`2) Open Bracket: ${otherBrackIndex}, Close Bracket: ${otherRightBrackLocation}`);
-                console.log(other.equation.split('').splice(otherBrackIndex, (otherRightBrackLocation - otherBrackIndex + 1)));
-                //console.log(`oob ${otherOpenBracks}`)
-                //console.log(`obii ${otherBrackIndexIndex}`);
-                //console.log(`obi ${otherBrackIndex}`);
-                //console.log(`ora ${otherRightAmount}`);
-                //console.log(`orb ${otherRightBracks}`);
-                //console.log(`orbl ${otherRightBrackLocation}`);
 
             }
         }
@@ -188,4 +179,23 @@ function findAllOccurances(arr, searchTerm, startIndex = 0) {
     }
 
     return indexArray;
+}
+
+
+//returns object containing array indexs of all brackets, and array of types of brackets
+function findAllBrackets(arr) {
+    let indexArray = [];
+    let bracketType = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] == "(" || arr[i] == ')') {
+            indexArray.push(i);
+            bracketType.push(arr[i]);
+        }
+    }
+
+    return {
+        indexArray: indexArray,
+        bracketType: bracketType
+    };
 }
