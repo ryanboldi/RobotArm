@@ -7,6 +7,10 @@ class Tree{
 
         this.equation = this.getRandomEquation();
         console.log(this.equation);
+
+        this.depthMutRate = 0.1;
+        this.semiTermMutRate = 0.2;
+        this.funcMutRate = 0.5;
         //console.log(nerdamer(this.equation).text());
     }
 
@@ -48,7 +52,7 @@ class Tree{
 
         let mutationRan = random();
         //10% chance we change a t into a new function
-        if (mutationRan < 0){
+        if (mutationRan < this.depthMutRate){
             if (this.equation.includes('t') == true){
                 //find all ts and replace a random one with a new function
                 let indexes = [...this.equation.matchAll(new RegExp('t', 'gi'))].map(a => a.index);
@@ -60,7 +64,7 @@ class Tree{
                 console.log(`added more depth mutation -> ${this.equation}`);
             }
             //10% chance we replace one function with another
-        } else if (mutationRan < 0){
+        } else if (mutationRan < this.semiTermMutRate){
             let semiTerminalsFound = [];
             for(let i = 0; i < this.semiterminals.length; i++){
                 if (this.equation.includes(this.semiterminals[i])){
@@ -84,7 +88,7 @@ class Tree{
             console.log(`Mutated random SemiTerminal -> ${this.equation}`);
             }
             //10% chance we change a random function (+ -> -);
-        } else if (mutationRan < 1){
+        } else if (mutationRan < this.funcMutRate){
             let functionsFound = [];
             for(let i = 0; i < this.functions.length; i++){
                 if (this.equation.includes(this.functions[i])){
