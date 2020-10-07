@@ -118,14 +118,33 @@ class Tree {
 
     crossover(other) {
         if (other instanceof Tree) {
-
-
-            //do the same for the other creature, and then swap!
             //THIS WILL BE RECEIVER, OTHER WILL BE DONOR
+            let thisStartEnd = randomBracketedExpression(this.equation);
+            let otherStartEnd = randomBracketedExpression(other.equation);
+
+            console.log(thisStartEnd);
+            console.log(otherStartEnd);
+
+            let thisClone = _.cloneDeep(this);
+            let otherClone = _.cloneDeep(other);
+            let childArr = thisClone.equation.split('');
+
+            let donation = otherClone.equation.slice(otherStartEnd.start, otherStartEnd.end + 1);
+            console.log(donation);
+
+            childArr.splice(thisStartEnd.start, (thisStartEnd.end - thisStartEnd.start + 1), donation);
+            console.log(childArr);
+
+            let child = _.cloneDeep(this);
+            child.equation = childArr.join('');
+
+            console.log(child.equation);
+
+            return child;
         }
     }
 }
-}
+
 
 //finds all occurances of searchTerm in arr, returns index array, starting at startIndex
 function findAllOccurances(arr, searchTerm, startIndex = 0) {
@@ -158,17 +177,18 @@ function findAllBrackets(arr) {
     };
 }
 
+//returns start and end indexes
 function randomBracketedExpression(equation) {
     //pick crossover point, and swap everything within that function.
     //eg sin(f(x)) X cos(g(x)) => sin(g(x))
     //find all open brackets, pick one at random
-    if (equation.includes('(') && other.equation.includes('(')) {
+    if (equation.includes('(')) {
 
         let thisBracks = findAllBrackets(equation.split(''));
         let thisBrackIndexes = thisBracks.indexArray;
         let thisBrackTypes = thisBracks.bracketType;
 
-        console.log(thisBrackIndexes);
+        //console.log(thisBrackIndexes);
 
         let thisRightBracksIndex = [];
         for (let i = 0; i < thisBrackIndexes.length; i++) {
@@ -195,6 +215,15 @@ function randomBracketedExpression(equation) {
         }
 
         //test
-        console.log(equation.split('').splice(thisPickedLeft, (thisPickedRight - thisPickedLeft + 1)));
+        //console.log(equation.split('').splice(thisPickedLeft, (thisPickedRight - thisPickedLeft + 1)));
+
+        return {
+            start: thisPickedLeft,
+            end: thisPickedRight
+        };
     }
+    return {
+        start: 0,
+        end: 0
+    };
 }
