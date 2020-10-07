@@ -106,8 +106,8 @@ class Tree{
 
                 let indexPicked = random(indexes);
 
-                console.log(arr);
-                console.log(indexPicked);
+                //console.log(arr);
+                //console.log(indexPicked);
                 arr.splice(indexPicked, functionPicked.length, random(this.functions));
                 this.equation = arr.join('');
                 console.log(`Mutated random function -> ${this.equation}`);
