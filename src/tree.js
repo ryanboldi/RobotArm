@@ -9,10 +9,10 @@ class Tree {
         console.log(this.equation);
 
         //MUST ADD TO 1 vvv
-        this.depthMutRate = 0.3;
-        this.semiTermMutRate = 0.2;
-        this.funcMutRate = 0.5;
-        this.simplifyMutRate = 0;
+        this.depthMutRate = 0;
+        this.semiTermMutRate = 0;
+        this.funcMutRate = 0;
+        this.simplifyMutRate = 1;
         //console.log(nerdamer(this.equation).text());
     }
 
@@ -116,14 +116,16 @@ class Tree {
                 console.log(`Mutated random function -> ${this.equation}`);
             }
         } else if (mutationRan < this.simplifyMutRate) {
-            //replace a random bracketed segment with 't'
-            let randomStartEnd = randomBracketedExpression(this.equation);
-            let arr = this.equation.split('');
+            if (this.equation.includes('(')) {
+                //replace a random bracketed segment with 't'
+                let randomStartEnd = randomBracketedExpression(this.equation);
+                let arr = this.equation.split('');
 
-            this.arr.splice(randomStartEnd.start, (randomStartEnd.end - randomStartEnd.start + 1), '(t)');
+                arr.splice(randomStartEnd.start, (randomStartEnd.end - randomStartEnd.start + 1), `(${random(this.terminals)})`);
 
-            this.equation = arr.join('');
-            console.log(`Mutated Simplified -> ${this.equation}`);
+                this.equation = arr.join('');
+                console.log(`Mutated Simplified -> ${this.equation} `);
+            }
         }
     }
 
