@@ -70,8 +70,7 @@ class Arm {
         let e = nerdamer(this.theta1Tree.equation, {t:this.timeCounter/100}, 'numer').evaluate();
         //console.log(e.text());
         return (e);
-        //return (this.timeCounter / 20);
-
+        //return (this.timeCounter / 20); 
     }
 
     getTheta2() {

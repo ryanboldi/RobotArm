@@ -21,6 +21,7 @@ class Tree{
         let t1;
         let t2;
 
+
         if (term1Rand < 0.4){
             t1 = 't'
         } else if (term1Rand < 0.6){
@@ -38,17 +39,24 @@ class Tree{
         }
 
         func = `${t1} ${random(this.functions)} ${t2}`;
-        // if (ran < 0.1){
-        //     func = (`(${random(this.terminals)} ${random(this.functions)} ${random(this.terminals)})`);
-        // } else if (ran < 0.2){
-        //     func = (`${random(this.semifunctions)}(${random(this.terminals)}, ${random(this.terminals)})`);
-        // } else if (ran < 0.3){
-        //     func = (`${random(this.semiterminals)}(${random(this.terminals)})`)
-        // } else{
-        //     func = (`(${random(this.terminals)} ${random(this.functions)} ${this.getRandomEquation().toString()})`);
-        // }
-
-
         return func
+    }
+
+    mutate(){
+        //mutates the trees by changing the terminal nodes and subterminals etc
+        console.log(this.equation);
+
+        //10% chance we change a t into a new function
+        if (random() < 1){
+            if (this.equation.includes('t') == true){
+                //find all ts and replace a random one with a new function
+                let indexes = [...this.equation.matchAll(new RegExp('t', 'gi'))].map(a => a.index);
+                console.log(indexes);
+                let indexPixed = random(indexes);
+                let arr = this.equation.split('');
+                arr.splice(indexPixed, 1, this.getRandomEquation().toString());
+                this.equation = arr.join('');
+            }
+        }
     }
 }
