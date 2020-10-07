@@ -1,7 +1,7 @@
-class Tree{
-    constructor(){
-        this.functions = ['+','-','/','*'];
-       // this.semifunctions = ['min', 'max'];
+class Tree {
+    constructor() {
+        this.functions = ['+', '-', '/', '*'];
+        // this.semifunctions = ['min', 'max'];
         this.semiterminals = ['sin', 'cos', 'tan', 'log'];
         this.terminals = ['t', '0.1'];
 
@@ -14,7 +14,7 @@ class Tree{
         //console.log(nerdamer(this.equation).text());
     }
 
-    getRandomEquation(){
+    getRandomEquation() {
         //pick two random functions, if trig function,
         let ran = random();
         let func = NaN;
@@ -26,17 +26,17 @@ class Tree{
         let t2;
 
 
-        if (term1Rand < 0.4){
+        if (term1Rand < 0.4) {
             t1 = 't'
-        } else if (term1Rand < 0.6){
+        } else if (term1Rand < 0.6) {
             t1 = `${random(this.semiterminals)}(${random(this.terminals)})`
         } else if (term1Rand < 1) {
             t1 = `${this.getRandomEquation().toString()}`;
         }
 
-        if (term2Rand < 0.4){
+        if (term2Rand < 0.4) {
             t2 = 't'
-        } else if (term2Rand < 0.6){
+        } else if (term2Rand < 0.6) {
             t2 = `${random(this.semiterminals)}(${random(this.terminals)})`
         } else if (term2Rand < 1) {
             t2 = `${this.getRandomEquation().toString()}`;
@@ -46,14 +46,14 @@ class Tree{
         return func
     }
 
-    mutate(){
+    mutate() {
         //mutates the trees by changing the terminal nodes and subterminals etc
         //console.log(this.equation);
 
         let mutationRan = random();
         //10% chance we change a t into a new function
-        if (mutationRan < this.depthMutRate){
-            if (this.equation.includes('t') == true){
+        if (mutationRan < this.depthMutRate) {
+            if (this.equation.includes('t') == true) {
                 //find all ts and replace a random one with a new function
                 let indexes = [...this.equation.matchAll(new RegExp('t', 'gi'))].map(a => a.index);
                 //console.log(indexes);
@@ -64,41 +64,41 @@ class Tree{
                 console.log(`added more depth mutation -> ${this.equation}`);
             }
             //10% chance we replace one function with another
-        } else if (mutationRan < this.semiTermMutRate){
+        } else if (mutationRan < this.semiTermMutRate) {
             let semiTerminalsFound = [];
-            for(let i = 0; i < this.semiterminals.length; i++){
-                if (this.equation.includes(this.semiterminals[i])){
+            for (let i = 0; i < this.semiterminals.length; i++) {
+                if (this.equation.includes(this.semiterminals[i])) {
                     semiTerminalsFound.push(this.semiterminals[i]);
                 }
             }
-            if (semiTerminalsFound.length > 0){
-            //console.log(semiTerminalsFound);
-            let semiTerminalPicked = random(semiTerminalsFound);
-            //console.log(semiTerminalPicked);
+            if (semiTerminalsFound.length > 0) {
+                //console.log(semiTerminalsFound);
+                let semiTerminalPicked = random(semiTerminalsFound);
+                //console.log(semiTerminalPicked);
 
-            //all occurances of this function
-            let indexes = [...this.equation.matchAll(new RegExp(semiTerminalPicked.toString(), 'gi'))].map(a => a.index);
-            //console.log(indexes);
-            let indexPicked = random(indexes); //index of first letter of function picked
+                //all occurances of this function
+                let indexes = [...this.equation.matchAll(new RegExp(semiTerminalPicked.toString(), 'gi'))].map(a => a.index);
+                //console.log(indexes);
+                let indexPicked = random(indexes); //index of first letter of function picked
 
-            //console.log(indexPicked);
-            let arr = this.equation.split('');
-            arr.splice(indexPicked, semiTerminalPicked.length, random(this.semiterminals));
-            this.equation = arr.join('');
-            console.log(`Mutated random SemiTerminal -> ${this.equation}`);
+                //console.log(indexPicked);
+                let arr = this.equation.split('');
+                arr.splice(indexPicked, semiTerminalPicked.length, random(this.semiterminals));
+                this.equation = arr.join('');
+                console.log(`Mutated random SemiTerminal -> ${this.equation}`);
             }
             //10% chance we change a random function (+ -> -);
-        } else if (mutationRan < this.funcMutRate){
+        } else if (mutationRan < this.funcMutRate) {
             let functionsFound = [];
-            for(let i = 0; i < this.functions.length; i++){
-                if (this.equation.includes(this.functions[i])){
+            for (let i = 0; i < this.functions.length; i++) {
+                if (this.equation.includes(this.functions[i])) {
                     functionsFound.push(this.functions[i]);
                 }
             }
 
-            if (functionsFound.length > 0){
+            if (functionsFound.length > 0) {
                 let functionPicked = random(functionsFound);
-                
+
 
                 let arr = this.equation.split('');
                 //get all indexes this function occurs on
@@ -116,12 +116,12 @@ class Tree{
     }
 
 
-    crossover(other){
-        if (other instanceof Tree){
+    crossover(other) {
+        if (other instanceof Tree) {
             //pick crossover point, and swap everything within that function.
             //eg sin(f(x)) X cos(g(x)) => sin(g(x))
             //find all open brackets, pick one at random
-            if (this.equation.includes ('(') && other.equation.includes('(')){
+            if (this.equation.includes('(') && other.equation.includes('(')) {
                 let thisOpenBracks = findAllOccurances(this.equation.split(''), '(');
                 let otherOpenBracks = findAllOccurances(other.equation.split(''), '(');
                 console.log(thisOpenBracks, otherOpenBracks);
@@ -138,6 +138,17 @@ class Tree{
 
                 //select all text between this left bracket and the matching right bracket
 
+                //LEFT BRACKET'S INDEX = this.brackIndex
+                //for every right bracket, we count down till 0. when we reach 0, store this as the matching right bracket's location
+
+                let thisRightBracks = findAllOccurances(this.equation.split(''), ')', thisBrackIndex);
+                let thisRightBrackLocation = thisRightBracks[thisRightAmount]; //selects the corresponding right brackets location
+
+                console.log(`trb ${thisRightBracks}`);
+                console.log(`trbl ${thisRightBrackLocation}`);
+
+
+                //TODO: FIX DIVIDE BY 0 ERROR
                 //do the same for the other creature, and then swap!
 
                 let otherBrackIndex = random(otherOpenBracks);
@@ -146,11 +157,11 @@ class Tree{
     }
 }
 
-//finds all occurances of searchTerm in arr, returns index array
-function findAllOccurances(arr, searchTerm){
+//finds all occurances of searchTerm in arr, returns index array, starting at startIndex
+function findAllOccurances(arr, searchTerm, startIndex = 0) {
     let indexArray = [];
-    for (let i = 0; i < arr.length; i++){
-        if (arr[i] == searchTerm){
+    for (let i = startIndex; i < arr.length; i++) {
+        if (arr[i] == searchTerm) {
             indexArray.push(i)
         }
     }
