@@ -118,55 +118,13 @@ class Tree {
 
     crossover(other) {
         if (other instanceof Tree) {
-            //pick crossover point, and swap everything within that function.
-            //eg sin(f(x)) X cos(g(x)) => sin(g(x))
-            //find all open brackets, pick one at random
-            if (this.equation.includes('(') && other.equation.includes('(')) {
-
-                let thisBracks = findAllBrackets(this.equation.split(''));
-                let thisBrackIndexes = thisBracks.indexArray;
-                let thisBrackTypes = thisBracks.bracketType;
-
-                console.log(thisBrackIndexes);
-
-                let thisRightBracksIndex = [];
-                for (let i = 0; i < thisBrackIndexes.length; i++) {
-                    if (thisBrackTypes[i] == '(') {
-                        thisRightBracksIndex.push(thisBrackIndexes[i]);
-                    }
-                }
-
-                let thisPickedLeft = random(thisRightBracksIndex); //pick a random left bracket starting point
-                let thisPickedRight; //corresponding right bracket
-
-                let thisEquationArr = _.cloneDeep(this.equation).split('');
-                let thisBracketTotal = 0;
-                for (let i = thisPickedLeft; i < thisEquationArr.length; i++) {
-                    if (thisEquationArr[i] == ')') {
-                        thisBracketTotal -= 1;
-                    } else if (thisEquationArr[i] == '(') {
-                        thisBracketTotal += 1;
-                    }
-                    if (thisBracketTotal == 0) {
-                        thisPickedRight = i;
-                        break;
-                    }
-                }
-
-                //test
-                console.log(this.equation.split('').splice(thisPickedLeft, (thisPickedRight - thisPickedLeft + 1)));
 
 
-
-                //do the same for the other creature, and then swap!
-                //THIS WILL BE RECEIVER, OTHER WILL BE DONOR
-
-
-
-
-            }
+            //do the same for the other creature, and then swap!
+            //THIS WILL BE RECEIVER, OTHER WILL BE DONOR
         }
     }
+}
 }
 
 //finds all occurances of searchTerm in arr, returns index array, starting at startIndex
@@ -198,4 +156,45 @@ function findAllBrackets(arr) {
         indexArray: indexArray,
         bracketType: bracketType
     };
+}
+
+function randomBracketedExpression(equation) {
+    //pick crossover point, and swap everything within that function.
+    //eg sin(f(x)) X cos(g(x)) => sin(g(x))
+    //find all open brackets, pick one at random
+    if (equation.includes('(') && other.equation.includes('(')) {
+
+        let thisBracks = findAllBrackets(equation.split(''));
+        let thisBrackIndexes = thisBracks.indexArray;
+        let thisBrackTypes = thisBracks.bracketType;
+
+        console.log(thisBrackIndexes);
+
+        let thisRightBracksIndex = [];
+        for (let i = 0; i < thisBrackIndexes.length; i++) {
+            if (thisBrackTypes[i] == '(') {
+                thisRightBracksIndex.push(thisBrackIndexes[i]);
+            }
+        }
+
+        let thisPickedLeft = random(thisRightBracksIndex); //pick a random left bracket starting point
+        let thisPickedRight; //corresponding right bracket
+
+        let thisEquationArr = _.cloneDeep(equation).split('');
+        let thisBracketTotal = 0;
+        for (let i = thisPickedLeft; i < thisEquationArr.length; i++) {
+            if (thisEquationArr[i] == ')') {
+                thisBracketTotal -= 1;
+            } else if (thisEquationArr[i] == '(') {
+                thisBracketTotal += 1;
+            }
+            if (thisBracketTotal == 0) {
+                thisPickedRight = i;
+                break;
+            }
+        }
+
+        //test
+        console.log(equation.split('').splice(thisPickedLeft, (thisPickedRight - thisPickedLeft + 1)));
+    }
 }
