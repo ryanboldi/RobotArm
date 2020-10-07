@@ -8,7 +8,7 @@ class Tree{
         this.equation = this.getRandomEquation();
         console.log(this.equation);
 
-        this.depthMutRate = 0.1;
+        this.depthMutRate = 0.3;
         this.semiTermMutRate = 0.2;
         this.funcMutRate = 0.5;
         //console.log(nerdamer(this.equation).text());

@@ -81,4 +81,10 @@ class Arm {
         //return (this.timeCounter / 10);
 
     }
+
+    mutate(){
+        this.theta1Tree.mutate();
+        this.theta2Tree.mutate();
+    
+    }
 }
