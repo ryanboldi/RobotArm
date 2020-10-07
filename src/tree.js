@@ -147,8 +147,6 @@ class Tree {
                 console.log(`trb ${thisRightBracks}`);
                 console.log(`trbl ${thisRightBrackLocation}`);
 
-
-                //TODO: FIX DIVIDE BY 0 ERROR
                 //do the same for the other creature, and then swap!
 
                 let otherBrackIndex = random(otherOpenBracks);

@@ -66,21 +66,23 @@ class Arm {
     }
 
     getTheta1() {
+        let e = 0;
         try {
-            let e = nerdamer(_.cloneDeep(this.theta1Tree.equation), { t: this.timeCounter / 100 }, 'numer').evaluate();
+            e = nerdamer(_.cloneDeep(this.theta1Tree.equation), { t: this.timeCounter / 100 }, 'numer').evaluate();
         } catch (ParseError) {
             //dividing by 0
-            let e = 1000;
+            e = 1000;
         }
         return e;
     }
 
     getTheta2() {
+        let e = 0;
         try {
-            let e = nerdamer(_.cloneDeep(this.theta2Tree.equation), { t: this.timeCounter / 100 }, 'numer').evaluate();
+            e = nerdamer(_.cloneDeep(this.theta2Tree.equation), { t: this.timeCounter / 100 }, 'numer').evaluate();
         } catch (ParseError) {
             //dividing by 0
-            let e = 1000;
+            e = 1000;
         }
         return e;
     }
