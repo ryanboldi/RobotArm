@@ -8,9 +8,11 @@ class Tree {
         this.equation = this.getRandomEquation();
         console.log(this.equation);
 
+        //MUST ADD TO 1 vvv
         this.depthMutRate = 0.3;
         this.semiTermMutRate = 0.2;
         this.funcMutRate = 0.5;
+        this.simplifyMutRate = 0;
         //console.log(nerdamer(this.equation).text());
     }
 
@@ -51,8 +53,8 @@ class Tree {
         //console.log(this.equation);
 
         let mutationRan = random();
-        //10% chance we change a t into a new function
         if (mutationRan < this.depthMutRate) {
+            //chance we change a t into a new function
             if (this.equation.includes('t') == true) {
                 //find all ts and replace a random one with a new function
                 let indexes = [...this.equation.matchAll(new RegExp('t', 'gi'))].map(a => a.index);
@@ -63,8 +65,8 @@ class Tree {
                 this.equation = arr.join('');
                 console.log(`added more depth mutation -> ${this.equation}`);
             }
-            //10% chance we replace one function with another
         } else if (mutationRan < this.semiTermMutRate) {
+            //10% chance we replace one function with another
             let semiTerminalsFound = [];
             for (let i = 0; i < this.semiterminals.length; i++) {
                 if (this.equation.includes(this.semiterminals[i])) {
@@ -87,8 +89,9 @@ class Tree {
                 this.equation = arr.join('');
                 console.log(`Mutated random SemiTerminal -> ${this.equation}`);
             }
-            //10% chance we change a random function (+ -> -);
+
         } else if (mutationRan < this.funcMutRate) {
+            //chance we change a random function (+ -> -);
             let functionsFound = [];
             for (let i = 0; i < this.functions.length; i++) {
                 if (this.equation.includes(this.functions[i])) {
@@ -112,6 +115,15 @@ class Tree {
                 this.equation = arr.join('');
                 console.log(`Mutated random function -> ${this.equation}`);
             }
+        } else if (mutationRan < this.simplifyMutRate) {
+            //replace a random bracketed segment with 't'
+            let randomStartEnd = randomBracketedExpression(this.equation);
+            let arr = this.equation.split('');
+
+            this.arr.splice(randomStartEnd.start, (randomStartEnd.end - randomStartEnd.start + 1), '(t)');
+
+            this.equation = arr.join('');
+            console.log(`Mutated Simplified -> ${this.equation}`);
         }
     }
 
