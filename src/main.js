@@ -17,6 +17,16 @@ function setup() {
 }
 
 function draw() {
+    if (userDrawing && mouseIsPressed) {
+        push();
+        stroke(0);
+        fill(0)
+        strokeWeight(3);
+        beginShape(POINTS);
+        vertex(mouseX, mouseY);
+        endShape();
+        pop();
+    }
 
     if (!userDrawing) {
         background(255);
@@ -28,4 +38,8 @@ function draw() {
 
 function sigmoid(t) {
     return 1 / (1 + Math.pow(Math.E, -t));
+}
+
+function mouseReleased() {
+    userDrawing = false;
 }
