@@ -136,6 +136,10 @@ class Tree{
                 console.log(`tbi ${thisBrackIndex}`);
                 console.log(`tra ${thisRightAmount}`);
 
+                //select all text between this left bracket and the matching right bracket
+
+                //do the same for the other creature, and then swap!
+
                 let otherBrackIndex = random(otherOpenBracks);
             }
         }
