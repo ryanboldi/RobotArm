@@ -123,18 +123,19 @@ class Tree {
             //find all open brackets, pick one at random
             if (this.equation.includes('(') && other.equation.includes('(')) {
                 let thisOpenBracks = findAllOccurances(this.equation.split(''), '(');
-                let otherOpenBracks = findAllOccurances(other.equation.split(''), '(');
-                console.log(thisOpenBracks, otherOpenBracks);
+                //console.log(thisOpenBracks);
 
                 //pick a random brack, store how many open bracks to the right of it
                 let thisBrackIndexIndex = floor(random(thisOpenBracks.length));
                 let thisBrackIndex = thisOpenBracks[thisBrackIndexIndex]; //index of the brackets
                 let thisRightAmount = thisOpenBracks.length - thisBrackIndexIndex - 1; //how many open bracks to the right of this one
 
-                console.log(`tob ${thisOpenBracks}`)
-                console.log(`tbii ${thisBrackIndexIndex}`);
-                console.log(`tbi ${thisBrackIndex}`);
-                console.log(`tra ${thisRightAmount}`);
+                //console.log(`tob ${thisOpenBracks}`)
+                //console.log(`tbii ${thisBrackIndexIndex}`);
+                //console.log(`tbi ${thisBrackIndex}`);
+                //console.log(`tra ${thisRightAmount}`);
+
+
 
                 //select all text between this left bracket and the matching right bracket
 
@@ -144,12 +145,34 @@ class Tree {
                 let thisRightBracks = findAllOccurances(this.equation.split(''), ')', thisBrackIndex);
                 let thisRightBrackLocation = thisRightBracks[thisRightAmount]; //selects the corresponding right brackets location
 
-                console.log(`trb ${thisRightBracks}`);
-                console.log(`trbl ${thisRightBrackLocation}`);
+                console.log(`1) Open Bracket: ${thisBrackIndex}, Close Bracket: ${thisRightBrackLocation}`);
+
+                //console.log(`trb ${thisRightBracks}`);
+                //console.log(`trbl ${thisRightBrackLocation}`);
 
                 //do the same for the other creature, and then swap!
+                //THIS WILL BE RECEIVER, OTHER WILL BE DONOR
 
-                let otherBrackIndex = random(otherOpenBracks);
+                let otherOpenBracks = findAllOccurances(other.equation.split(''), '(');
+
+                //pick a random brack, store how many open bracks to the right of it
+                let otherBrackIndexIndex = floor(random(otherOpenBracks.length));
+                let otherBrackIndex = otherOpenBracks[otherBrackIndexIndex]; //index of the brackets
+                let otherRightAmount = otherOpenBracks.length - otherBrackIndexIndex - 1; //how many open bracks to the right of this one
+
+                let otherRightBracks = findAllOccurances(other.equation.split(''), ')', otherBrackIndex);
+                let otherRightBrackLocation = otherRightBracks[otherRightAmount]; //selects the corresponding right brackets location
+
+
+                console.log(`2) Open Bracket: ${otherBrackIndex}, Close Bracket: ${otherRightBrackLocation}`);
+                console.log(other.equation.split('').splice(otherBrackIndex, (otherRightBrackLocation - otherBrackIndex + 1)));
+                //console.log(`oob ${otherOpenBracks}`)
+                //console.log(`obii ${otherBrackIndexIndex}`);
+                //console.log(`obi ${otherBrackIndex}`);
+                //console.log(`ora ${otherRightAmount}`);
+                //console.log(`orb ${otherRightBracks}`);
+                //console.log(`orbl ${otherRightBrackLocation}`);
+
             }
         }
     }
