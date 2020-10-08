@@ -62,6 +62,7 @@ function sigmoid(t) {
 
 function mouseReleased() {
     userDrawing = false;
+    userPathlength = ceil(getPathLength(userDrawnVertices));
     console.log(getPathLength(userDrawnVertices));
 }
 
