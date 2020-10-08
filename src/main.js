@@ -18,6 +18,7 @@ function setup() {
 }
 
 function draw() {
+    //USER DRAWING MODE
     if (userDrawing && mouseIsPressed) {
         push();
         stroke(0);
@@ -30,11 +31,13 @@ function draw() {
         pop();
     }
 
+    
     if (!userDrawing) {
         background(255);
         fill(200);
         ellipse(WIDTH / 2, HEIGHT / 2, 800, 800);
 
+        //DRAW THE POINTS THAT WE SAVED
         push();
         beginShape(LINES);
         for (let i = 0; i < userDrawnVertices.length; i++) {

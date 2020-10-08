@@ -13,6 +13,9 @@ class Arm {
         this.theta2Tree = new Tree();
 
         this.timeCounter = 1;
+
+        //stores the vertices that the arm is at every frame -> used to compute fitness.
+        this.path = [];
     }
 
     draw() {
@@ -90,5 +93,10 @@ class Arm {
     mutate() {
         this.theta1Tree.mutate();
         this.theta2Tree.mutate();
+    }
+
+    computeFitness(){
+        //take this.path, somehow compare it to the userdrawn vertices to get a closeness index.
+        
     }
 }
