@@ -17,8 +17,6 @@ class Tree {
     }
 
     getRandomEquation() {
-        //pick two random functions, if trig function,
-        let ran = random();
         let func = NaN;
 
         //pick two terminals, either terminals, number, or another function
