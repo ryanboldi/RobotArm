@@ -5,17 +5,22 @@ let userDrawing = true;
 let userDrawnVertices = [];
 let userPathlength;
 
-let a;
+let arms = [];
+
 let t;
+
+const ArmsPerGen = 7;
+
+
 
 function setup() {
     createCanvas(WIDTH, HEIGHT);
-    a = new Arm();
+    for (let i = 0; i< ArmsPerGen; i++){arms.push(new Arm());}
 
     background(255);
     fill(200);
     ellipse(WIDTH / 2, HEIGHT / 2, 800, 800);
-    a.draw();
+    for (let i = 0; i< ArmsPerGen; i++){arms[i].draw();}
 }
 
 function draw() {
@@ -52,7 +57,7 @@ function draw() {
 
         
         
-        a.draw();
+        for (let i = 0; i< ArmsPerGen; i++){arms[i].draw();}
     }
 }
 
