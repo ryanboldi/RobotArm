@@ -12,6 +12,9 @@ class Arm {
         this.theta2 = 0;
         this.theta2Tree = new Tree();
 
+        this.tipX = WIDTH/2 + (400);
+        this.tipY = HEIGHT/2;
+
         this.timeCounter = 1;
 
         //stores the vertices that the arm is at every frame -> used to compute fitness.
@@ -40,7 +43,9 @@ class Arm {
         //moves to the TIP of the second hand
         push();
         fill(255, 0, 0);
-        translate(platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1))), platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1))));
+        this.tipX = platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1)));
+        this.tipY = platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1)));
+        translate(this.tipX, this.tipY);
         ellipse(0, 0, 10, 10);
         //ellipse(platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1))), platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1))), 10, 10);
         pop();
@@ -63,6 +68,10 @@ class Arm {
 
         this.theta2 += theta2Dif;
 
+        //ADD CURRENT TIP LOCATION TO ARM PATH
+        this.path.push({x: this.tipX, y:this.tipY});
+        console.log(`So far arm path length: ${getPathLength(this.path)}`);
+        
         //console.log(this.theta1);
         //console.log(this.theta2);
         this.timeCounter++;
@@ -97,6 +106,6 @@ class Arm {
 
     computeFitness(){
         //take this.path, somehow compare it to the userdrawn vertices to get a closeness index.
-        
+
     }
 }

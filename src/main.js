@@ -69,26 +69,29 @@ function mouseReleased() {
 
 //goes from each vertex to the next, totalling the distance of the whole path
 function getPathLength(path){
-    //starting values
-    let x = path[0].x;
-    let y = path[0].y;
+    if (path.length > 1){
 
-    //second vertex
-    let x1 = path[1].x;
-    let y2 = path[1].y;
-    let totalLength = 0;
+        //starting values
+        let x = path[0].x;
+        let y = path[0].y;
 
-    //for every vertex
-    for (let i = 1; i< path.length; i++){
-        x1 = path[i].x;
-        y1 = path[i].y;
+        //second vertex
+        let x1 = path[1].x;
+        let y2 = path[1].y;
+        let totalLength = 0;
 
-        let segmentLength = Math.sqrt(Math.pow((x-x1),2) + Math.pow((y-y1),2));
-        totalLength += segmentLength;
+        //for every vertex
+        for (let i = 1; i< path.length; i++){
+            x1 = path[i].x;
+            y1 = path[i].y;
 
-        x = x1;
-        y = y1;
-    }
+            let segmentLength = Math.sqrt(Math.pow((x-x1),2) + Math.pow((y-y1),2));
+            totalLength += segmentLength;
 
-    return totalLength;
+            x = x1;
+            y = y1;
+        }
+        return totalLength;
+    }   
+    return 0;
 }
