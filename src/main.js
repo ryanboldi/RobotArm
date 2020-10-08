@@ -10,8 +10,7 @@ let arms = [];
 let t;
 
 const ArmsPerGen = 7;
-
-
+let generation = 1;
 
 function setup() {
     createCanvas(WIDTH, HEIGHT);
@@ -59,6 +58,10 @@ function draw() {
         
         for (let i = 0; i< ArmsPerGen; i++){arms[i].draw();}
     }
+}
+
+function NewGeneration(){
+//when all creatures are done, sort by fitness, pick new generation, clear board, and start again.
 }
 
 function sigmoid(t) {
