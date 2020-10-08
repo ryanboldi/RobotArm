@@ -96,3 +96,20 @@ function getPathLength(path){
     }   
     return 0;
 }
+
+//returns the difference between two paths' vertices.
+function getTotalPathDifference(path1, path2){
+    let difference = 0;
+
+    //ASSUME path1.length >= path2.length
+    if (path2.length >= path1.length){
+        for(let i = 0; i < path1.length; i++){
+            difference += (Math.sqrt(Math.pow(path1[i].x - path2[i].x, 2) + Math.pow(path1[i].y - path2[i].y, 2)));
+        }
+    }else{
+        console.log("Path lengths don't match up, try again");
+        difference = 10000; // BAD
+    }
+
+    return difference;
+}

@@ -9,10 +9,10 @@ class Tree {
         console.log(this.equation);
 
         //MUST ADD TO 1 vvv
-        this.depthMutRate = 0;
-        this.semiTermMutRate = 0;
-        this.funcMutRate = 0;
-        this.simplifyMutRate = 1;
+        this.depthMutRate = 0.5;
+        this.semiTermMutRate = 0.2;
+        this.funcMutRate = 0.2;
+        this.simplifyMutRate = 0.1;
         //console.log(nerdamer(this.equation).text());
     }
 

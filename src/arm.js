@@ -17,6 +17,9 @@ class Arm {
 
         this.timeCounter = 1;
 
+        this.moving = true;
+        this.fitness = 0;
+
         //stores the vertices that the arm is at every frame -> used to compute fitness.
         this.path = [];
     }
@@ -50,6 +53,8 @@ class Arm {
         //ellipse(platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1))), platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1))), 10, 10);
         pop();
 
+    if (this.moving){  
+
         let theta1Dif = this.getTheta1() - this.theta1;
         if (theta1Dif > this.maxSpeed) {
             theta1Dif = this.maxSpeed;
@@ -71,10 +76,34 @@ class Arm {
         //ADD CURRENT TIP LOCATION TO ARM PATH
         this.path.push({x: this.tipX, y:this.tipY});
         //console.log(`So far arm path length: ${getPathLength(this.path)}`);
-        console.log(`So far arm path length: ${this.path.length}`);
+        //console.log(`So far arm path length: ${this.path.length}`);
         
+        }   
+
+        push();
+        beginShape(LINES);
+        for (let i = 0; i < this.path.length; i++) {
+            stroke(255,0,0);
+            fill(255,0,0);
+            strokeWeight(3);
+            vertex(this.path[i].x, this.path[i].y);
+        }
+        endShape();
+        pop();
+
         //console.log(this.theta1);
         //console.log(this.theta2);
+        if (this.moving){
+            if (this.path.length == userDrawnVertices.length){
+                //calculate fitness of this creature, 
+                this.moving = false;
+                this.fitness = getTotalPathDifference(userDrawnVertices, this.path)
+                if(isNaN(this.fitness)){
+                    this.fitness = Infinity;
+                }
+                console.log(this.fitness);
+            }
+        }
         this.timeCounter++;
     }
 
