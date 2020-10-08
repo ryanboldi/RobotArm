@@ -31,22 +31,23 @@ function draw() {
     }
 
     if (!userDrawing) {
+        background(255);
+        fill(200);
+        ellipse(WIDTH / 2, HEIGHT / 2, 800, 800);
+
         push();
+        beginShape(LINES);
         for (let i = 0; i < userDrawnVertices.length; i++) {
             stroke(0);
             fill(0)
             strokeWeight(3);
-            beginShape(POINTS);
-            userDrawnVertices.push({ x: mouseX, y: mouseY });
-            endShape();
+            vertex(userDrawnVertices[i].x, userDrawnVertices[i].y);
         }
+        endShape();
         pop();
 
-
-
-        background(255);
-        fill(200);
-        ellipse(WIDTH / 2, HEIGHT / 2, 800, 800);
+        
+        
         a.draw();
     }
 }
