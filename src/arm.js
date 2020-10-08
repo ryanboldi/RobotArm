@@ -4,7 +4,7 @@ class Arm {
         this.armSegLength = 200;
         this.armSegWidth = 20;
 
-        this.maxSpeed = 0.05; //radians per second
+        this.maxSpeed = 0.1; //radians per second
 
         this.theta1 = 0;
         this.theta1Tree = new Tree();
@@ -24,34 +24,39 @@ class Arm {
         this.path = [];
     }
 
-    draw() {
+    draw(drawToScreen = true) {
+
         let platformX = WIDTH / 2;
         let platformY = 400;
 
-        //noStroke();
-        fill(0);
-        rectMode(CENTER);
-        //rect(platformX, platformY, 30, 20);
-
-        push();
-        translate(platformX, platformY);
-        rotate(this.theta1);
-        strokeWeight(this.armSegWidth);
-        line(0, 0, this.armSegLength, 0);
-        translate(this.armSegLength, 0);
-        rotate(this.theta2);
-        line(0, 0, this.armSegLength, 0);
-        pop();
-
-        //moves to the TIP of the second hand
-        push();
-        fill(255, 0, 0);
         this.tipX = platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1)));
         this.tipY = platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1)));
-        translate(this.tipX, this.tipY);
-        ellipse(0, 0, 10, 10);
-        //ellipse(platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1))), platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1))), 10, 10);
-        pop();
+
+        if (drawToScreen) {
+            //noStroke();
+            fill(0);
+            rectMode(CENTER);
+            //rect(platformX, platformY, 30, 20);
+
+            push();
+            translate(platformX, platformY);
+            rotate(this.theta1);
+            strokeWeight(this.armSegWidth);
+            line(0, 0, this.armSegLength, 0);
+            translate(this.armSegLength, 0);
+            rotate(this.theta2);
+            line(0, 0, this.armSegLength, 0);
+            pop();
+
+            //moves to the TIP of the second hand
+            push();
+            fill(255, 0, 0);
+
+            translate(this.tipX, this.tipY);
+            ellipse(0, 0, 10, 10);
+            //ellipse(platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1))), platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1))), 10, 10);
+            pop();
+        }
 
         if (this.moving) {
 
@@ -79,16 +84,18 @@ class Arm {
             //console.log(`So far arm path length: ${this.path.length}`);  
         }
 
-        push();
-        beginShape(LINES);
-        for (let i = 0; i < this.path.length; i++) {
-            stroke(255, 0, 0);
-            fill(255, 0, 0);
-            strokeWeight(3);
-            vertex(this.path[i].x, this.path[i].y);
+        if (drawToScreen) {
+            push();
+            beginShape(LINES);
+            for (let i = 0; i < this.path.length; i++) {
+                stroke(255, 0, 0);
+                fill(255, 0, 0);
+                strokeWeight(3);
+                vertex(this.path[i].x, this.path[i].y);
+            }
+            endShape();
+            pop();
         }
-        endShape();
-        pop();
 
         //console.log(this.theta1);
         //console.log(this.theta2);
@@ -96,11 +103,11 @@ class Arm {
             if (this.path.length == userDrawnVertices.length) {
                 //calculate fitness of this creature, 
                 this.moving = false;
-                this.fitness = getTotalPathDifference(userDrawnVertices, this.path)
+                this.fitness = getTotalPathDifference(userDrawnVertices, this.path);
                 if (isNaN(this.fitness)) {
                     this.fitness = Infinity;
                 }
-                console.log(this.fitness);
+                //console.log(this.fitness);
             }
         }
         this.timeCounter++;

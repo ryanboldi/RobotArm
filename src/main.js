@@ -9,9 +9,11 @@ let arms = [];
 
 let t;
 
-const ArmsPerGen = 8;
+const ArmsPerGen = 10;
 const survivors = ArmsPerGen / 2;
 let generation = 1;
+
+let currentShowing;
 
 function setup() {
     createCanvas(WIDTH, HEIGHT);
@@ -56,8 +58,13 @@ function draw() {
         pop();
 
 
+        if (currentShowing == undefined) {
+            console.log("Wait for first generation to finish before viewing bests");
+        } else {
+            currentShowing.draw(true);
+        }
 
-        for (let i = 0; i < ArmsPerGen; i++) { arms[i].draw(); }
+        for (let i = 0; i < ArmsPerGen; i++) { arms[i].draw(false); }
         let allDone = true;
         for (let i = 0; i < ArmsPerGen; i++) {
             if (arms[i].moving) {
@@ -77,6 +84,14 @@ function NewGeneration() {
     let sortedArms = arms.sort((a, b) => (a.fitness > b.fitness) ? 1 : -1); //sort ascending
     let parentArms = _.cloneDeep(sortedArms).splice(0, survivors);
 
+    currentShowing = _.cloneDeep(sortedArms[0]); // best of the generation
+    currentShowing.theta1 = 0;
+    currentShowing.theta2 = 0;
+    currentShowing.timeCounter = 1;
+    currentShowing.moving = true;
+    currentShowing.fitness = 0;
+    currentShowing.path = [];
+
     let childrenArms = [];
     //half children made from crossover
     if (ArmsPerGen > 1) {
@@ -94,6 +109,10 @@ function NewGeneration() {
             child.theta2Tree = t2;
             childrenArms.push(child);
         }
+
+        //add best creature to childrenArms
+        childrenArms.push(_cloneDeep(sortedArms[0]));
+
         for (let i = childrenArms.length; i < ArmsPerGen; i++) {
             //make children via mutation
             let randomClone = _.cloneDeep(random(parentArms));
@@ -103,6 +122,8 @@ function NewGeneration() {
     }
     console.log(childrenArms);
     generation++;
+
+    arms = null;
 
     arms = childrenArms;
     for (let i = 0; i < arms.length; i++) {
