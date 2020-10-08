@@ -57,11 +57,25 @@ function draw() {
         
         
         for (let i = 0; i< ArmsPerGen; i++){arms[i].draw();}
+        let allDone = true;
+        for (let i = 0; i< ArmsPerGen; i++){
+            if (arms[i].moving){
+                allDone = false;
+            }
+        }
+
+        if (allDone){
+            NewGeneration();
+            noLoop();
+        }
     }
 }
 
 function NewGeneration(){
-//when all creatures are done, sort by fitness, pick new generation, clear board, and start again.
+    //when all creatures are done, sort by fitness, pick new generation, clear board, and start again.
+    let sortedArms = arms.sort((a, b) => (a.fitness > b.fitness) ? 1 : -1); //sort ascending
+
+    console.log(sortedArms);
 }
 
 function sigmoid(t) {

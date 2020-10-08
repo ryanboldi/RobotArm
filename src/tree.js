@@ -6,7 +6,7 @@ class Tree {
         this.terminals = ['t', '0.1'];
 
         this.equation = this.getRandomEquation();
-        console.log(this.equation);
+        //console.log(this.equation);
 
         //MUST ADD TO 1 vvv
         this.depthMutRate = 0.5;
