@@ -159,7 +159,7 @@ class Tree {
 
             console.log(child.equation);
 
-            return child;
+            return _.cloneDeep(child);
         }
     }
 }

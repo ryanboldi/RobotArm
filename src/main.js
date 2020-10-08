@@ -79,8 +79,25 @@ function NewGeneration(){
 
     let childrenArms = [];
     //half children made from crossover
-    for (let i = 0; i < floor(ArmsPerGen/2); i++){
-        childrenArms.push();
+    if (ArmsPerGen > 1){
+        for (let i = 0; i < floor(ArmsPerGen/2); i++){
+            let localParents = _.cloneDeep(parentArms);
+            let parentIndex = floor(random(localParents.length));
+            let parent1 = localParents.splice(parentIndex, 1);
+            let parent2 = random(localParents);
+
+            let t1 = childrenArms.push(parent1.theta1Tree.crossover(parent2.theta1Tree));
+            let t2 = childrenArms.push(parent1.theta2Tree.crossover(parent2.theta2Tree));
+
+            let child = _.cloneDeep(parent1);
+            child.theta1Tree = t1;
+            child.theta2Tree = t2;
+            childrenArms.push(child);
+        }
+        for (let i = childrenArms.length; i < ArmsPerGen; i++){
+            //make children via mutation
+            childrenArms.push(_.cloneDeep(random(parentArms)).mutate());
+        }
     }
     console.log(parentArms);
 }

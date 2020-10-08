@@ -76,8 +76,7 @@ class Arm {
         //ADD CURRENT TIP LOCATION TO ARM PATH
         this.path.push({x: this.tipX, y:this.tipY});
         //console.log(`So far arm path length: ${getPathLength(this.path)}`);
-        //console.log(`So far arm path length: ${this.path.length}`);
-        
+        //console.log(`So far arm path length: ${this.path.length}`);  
         }   
 
         push();
