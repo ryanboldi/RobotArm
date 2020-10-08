@@ -3,6 +3,7 @@ const WIDTH = 820,
 
 let userDrawing = true;
 let userDrawnVertices = [];
+let userPathlength;
 
 let a;
 let t;
@@ -61,4 +62,32 @@ function sigmoid(t) {
 
 function mouseReleased() {
     userDrawing = false;
+    console.log(getPathLength(userDrawnVertices));
+}
+
+
+//goes from each vertex to the next, totalling the distance of the whole path
+function getPathLength(path){
+    //starting values
+    let x = path[0].x;
+    let y = path[0].y;
+
+    //second vertex
+    let x1 = path[1].x;
+    let y2 = path[1].y;
+    let totalLength = 0;
+
+    //for every vertex
+    for (let i = 1; i< path.length; i++){
+        x1 = path[i].x;
+        y1 = path[i].y;
+
+        let segmentLength = Math.sqrt(Math.pow((x-x1),2) + Math.pow((y-y1),2));
+        totalLength += segmentLength;
+
+        x = x1;
+        y = y1;
+    }
+
+    return totalLength;
 }
