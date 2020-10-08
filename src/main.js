@@ -9,7 +9,8 @@ let arms = [];
 
 let t;
 
-const ArmsPerGen = 7;
+const ArmsPerGen = 8;
+const survivors = ArmsPerGen/2;
 let generation = 1;
 
 function setup() {
@@ -74,8 +75,14 @@ function draw() {
 function NewGeneration(){
     //when all creatures are done, sort by fitness, pick new generation, clear board, and start again.
     let sortedArms = arms.sort((a, b) => (a.fitness > b.fitness) ? 1 : -1); //sort ascending
+    let parentArms = _.cloneDeep(sortedArms).splice(0, survivors);
 
-    console.log(sortedArms);
+    let childrenArms = [];
+    //half children made from crossover
+    for (let i = 0; i < floor(ArmsPerGen/2); i++){
+        childrenArms.push();
+    }
+    console.log(parentArms);
 }
 
 function sigmoid(t) {
