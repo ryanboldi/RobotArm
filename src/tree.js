@@ -9,10 +9,10 @@ class Tree {
         //console.log(this.equation);
 
         //MUST ADD TO 1 vvv
-        this.depthMutRate = 0.5;
-        this.semiTermMutRate = 0.2;
-        this.funcMutRate = 0.2;
-        this.simplifyMutRate = 0.1;
+        this.depthMutRate = 0.2;
+        this.semiTermMutRate = 0.3;
+        this.funcMutRate = 0.3;
+        this.simplifyMutRate = 0.2;
         //console.log(nerdamer(this.equation).text());
     }
 
@@ -115,7 +115,7 @@ class Tree {
                 //console.log(indexPicked);
                 arr.splice(indexPicked, functionPicked.length, random(this.functions));
                 this.equation = arr.join('');
-                console.log(`Mutated random function -> ${this.equation}`);
+                //console.log(`Mutated random function -> ${this.equation}`);
                 return _.cloneDeep(this);
             }
         } else if (mutationRan < this.simplifyMutRate) {
@@ -127,7 +127,7 @@ class Tree {
                 arr.splice(randomStartEnd.start, (randomStartEnd.end - randomStartEnd.start + 1), `(${random(this.terminals)})`);
 
                 this.equation = arr.join('');
-                console.log(`Mutated Simplified -> ${this.equation} `);
+                //console.log(`Mutated Simplified -> ${this.equation} `);
                 return _.cloneDeep(this);
             }
         }
@@ -141,23 +141,23 @@ class Tree {
             let thisStartEnd = randomBracketedExpression(this.equation);
             let otherStartEnd = randomBracketedExpression(other.equation);
 
-            console.log(thisStartEnd);
-            console.log(otherStartEnd);
+            //console.log(thisStartEnd);
+            // console.log(otherStartEnd);
 
             let thisClone = _.cloneDeep(this);
             let otherClone = _.cloneDeep(other);
             let childArr = thisClone.equation.split('');
 
             let donation = otherClone.equation.slice(otherStartEnd.start, otherStartEnd.end + 1);
-            console.log(donation);
+            //console.log(donation);
 
             childArr.splice(thisStartEnd.start, (thisStartEnd.end - thisStartEnd.start + 1), donation);
-            console.log(childArr);
+            //console.log(childArr);
 
             let child = _.cloneDeep(this);
             child.equation = childArr.join('');
 
-            console.log(child.equation);
+            //console.log(child.equation);
 
             return _.cloneDeep(child);
         }

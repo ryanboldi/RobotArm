@@ -12,8 +12,8 @@ class Arm {
         this.theta2 = 0;
         this.theta2Tree = new Tree();
 
-        this.tipX = WIDTH/2 + (400);
-        this.tipY = HEIGHT/2;
+        this.tipX = WIDTH / 2 + (400);
+        this.tipY = HEIGHT / 2;
 
         this.timeCounter = 1;
 
@@ -53,37 +53,37 @@ class Arm {
         //ellipse(platformX + (this.armSegLength * (Math.cos(this.theta1) + Math.cos(this.theta2 + this.theta1))), platformY + (this.armSegLength * (Math.sin(this.theta1) + Math.sin(this.theta2 + this.theta1))), 10, 10);
         pop();
 
-    if (this.moving){  
+        if (this.moving) {
 
-        let theta1Dif = this.getTheta1() - this.theta1;
-        if (theta1Dif > this.maxSpeed) {
-            theta1Dif = this.maxSpeed;
-        } else if (theta1Dif < (-this.maxSpeed)) {
-            theta1Dif = -this.maxSpeed;
+            let theta1Dif = this.getTheta1() - this.theta1;
+            if (theta1Dif > this.maxSpeed) {
+                theta1Dif = this.maxSpeed;
+            } else if (theta1Dif < (-this.maxSpeed)) {
+                theta1Dif = -this.maxSpeed;
+            }
+
+            this.theta1 += theta1Dif;
+
+            let theta2Dif = this.getTheta2() - this.theta2;
+            if (theta2Dif > this.maxSpeed) {
+                theta2Dif = this.maxSpeed;
+            } else if (theta2Dif < (-this.maxSpeed)) {
+                theta2Dif = -this.maxSpeed;
+            }
+
+            this.theta2 += theta2Dif;
+
+            //ADD CURRENT TIP LOCATION TO ARM PATH
+            this.path.push({ x: this.tipX, y: this.tipY });
+            //console.log(`So far arm path length: ${getPathLength(this.path)}`);
+            //console.log(`So far arm path length: ${this.path.length}`);  
         }
-
-        this.theta1 += theta1Dif;
-
-        let theta2Dif = this.getTheta2() - this.theta2;
-        if (theta2Dif > this.maxSpeed) {
-            theta2Dif = this.maxSpeed;
-        } else if (theta2Dif < (-this.maxSpeed)) {
-            theta2Dif = -this.maxSpeed;
-        }
-
-        this.theta2 += theta2Dif;
-
-        //ADD CURRENT TIP LOCATION TO ARM PATH
-        this.path.push({x: this.tipX, y:this.tipY});
-        //console.log(`So far arm path length: ${getPathLength(this.path)}`);
-        //console.log(`So far arm path length: ${this.path.length}`);  
-        }   
 
         push();
         beginShape(LINES);
         for (let i = 0; i < this.path.length; i++) {
-            stroke(255,0,0);
-            fill(255,0,0);
+            stroke(255, 0, 0);
+            fill(255, 0, 0);
             strokeWeight(3);
             vertex(this.path[i].x, this.path[i].y);
         }
@@ -92,12 +92,12 @@ class Arm {
 
         //console.log(this.theta1);
         //console.log(this.theta2);
-        if (this.moving){
-            if (this.path.length == userDrawnVertices.length){
+        if (this.moving) {
+            if (this.path.length == userDrawnVertices.length) {
                 //calculate fitness of this creature, 
                 this.moving = false;
                 this.fitness = getTotalPathDifference(userDrawnVertices, this.path)
-                if(isNaN(this.fitness)){
+                if (isNaN(this.fitness)) {
                     this.fitness = Infinity;
                 }
                 console.log(this.fitness);
@@ -129,11 +129,14 @@ class Arm {
     }
 
     mutate() {
-        this.theta1Tree.mutate();
-        this.theta2Tree.mutate();
+        let clone = _.cloneDeep(this);
+        clone.theta1Tree.mutate();
+        clone.theta2Tree.mutate();
+
+        return clone;
     }
 
-    computeFitness(){
+    computeFitness() {
         //take this.path, somehow compare it to the userdrawn vertices to get a closeness index.
 
     }

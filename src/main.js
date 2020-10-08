@@ -67,7 +67,7 @@ function draw() {
 
         if (allDone) {
             NewGeneration();
-            noLoop();
+            //noLoop();
         }
     }
 }
@@ -83,11 +83,11 @@ function NewGeneration() {
         for (let i = 0; i < floor(ArmsPerGen / 2); i++) {
             let localParents = _.cloneDeep(parentArms);
             let parentIndex = floor(random(localParents.length));
-            let parent1 = localParents.splice(parentIndex, 1);
+            let parent1 = localParents.splice(parentIndex, 1)[0];
             let parent2 = random(localParents);
 
-            let t1 = childrenArms.push(parent1.theta1Tree.crossover(parent2.theta1Tree));
-            let t2 = childrenArms.push(parent1.theta2Tree.crossover(parent2.theta2Tree));
+            let t1 = parent1.theta1Tree.crossover(parent2.theta1Tree);
+            let t2 = parent1.theta2Tree.crossover(parent2.theta2Tree);
 
             let child = _.cloneDeep(parent1);
             child.theta1Tree = t1;
@@ -96,10 +96,23 @@ function NewGeneration() {
         }
         for (let i = childrenArms.length; i < ArmsPerGen; i++) {
             //make children via mutation
-            childrenArms.push(_.cloneDeep(random(parentArms)).mutate());
+            let randomClone = _.cloneDeep(random(parentArms));
+            //console.log(randomClone);
+            childrenArms.push(randomClone.mutate());
         }
     }
-    console.log(parentArms);
+    console.log(childrenArms);
+    generation++;
+
+    arms = childrenArms;
+    for (let i = 0; i < arms.length; i++) {
+        arms[i].theta1 = 0;
+        arms[i].theta2 = 0;
+        arms[i].timeCounter = 1;
+        arms[i].moving = true;
+        arms[i].fitness = 0;
+        arms[i].path = [];
+    }
 }
 
 function sigmoid(t) {
