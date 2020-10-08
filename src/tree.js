@@ -2,17 +2,17 @@ class Tree {
     constructor() {
         this.functions = ['+', '-', '/', '*'];
         // this.semifunctions = ['min', 'max'];
-        this.semiterminals = ['sin', 'cos', 'tan', 'log'];
-        this.terminals = ['t', '0.1'];
+        this.semiterminals = ['sin', 'cos'];
+        this.terminals = ['t', '0.1', '-0.1'];
 
         this.equation = this.getRandomEquation();
         //console.log(this.equation);
 
         //MUST ADD TO 1 vvv
-        this.depthMutRate = 0.1;
-        this.semiTermMutRate = 0.4;
-        this.funcMutRate = 0.41;
-        this.simplifyMutRate = 0.09;
+        this.depthMutRate = 0.15;
+        this.semiTermMutRate = 0.35;
+        this.funcMutRate = 0.35;
+        this.simplifyMutRate = 0.15;
         //console.log(nerdamer(this.equation).text());
     }
 

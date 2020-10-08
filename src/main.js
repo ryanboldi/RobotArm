@@ -9,7 +9,7 @@ let arms = [];
 
 let t;
 
-const ArmsPerGen = 10;
+const ArmsPerGen = 12;
 const survivors = ArmsPerGen / 2;
 let generation = 1;
 
@@ -111,7 +111,7 @@ function NewGeneration() {
         }
 
         //add best creature to childrenArms
-        childrenArms.push(_cloneDeep(sortedArms[0]));
+        childrenArms.push(_.cloneDeep(sortedArms[0]));
 
         for (let i = childrenArms.length; i < ArmsPerGen; i++) {
             //make children via mutation
