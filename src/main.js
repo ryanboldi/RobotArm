@@ -200,7 +200,23 @@ function distance(p1, p2) {
 };
 
 //https://gist.github.com/argelius
-function DiscreteFrechet(a, b) {
+function DiscreteFrechet(path1, path2) {
+    //need to convert object to rectangular array
+    let a = [],
+        b = [];
+
+    for (let i = 0; i < path1.length; i++) {
+        let newArr = []
+        newArr.push(path1[i].x);
+        newArr.push(path1[i].y);
+        a.push(newArr);
+
+        newArr = []
+        newArr.push(path2[i].x);
+        newArr.push(path2[i].y);
+        b.push(newArr);
+    }
+
     let C = new Float32Array(a.length * b.length),
         dim = a.length,
         i, j;
