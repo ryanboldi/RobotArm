@@ -193,3 +193,7 @@ function getTotalPathDifference(path1, path2) {
 
     return difference;
 }
+
+function DiscreteFrechet(a, b) {
+
+}
