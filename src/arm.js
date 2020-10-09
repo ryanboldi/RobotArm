@@ -121,7 +121,7 @@ class Arm {
             //dividing by 0
             e = 1000;
         }
-        return e;
+        return 2 * e;
     }
 
     getTheta2() {
@@ -132,7 +132,7 @@ class Arm {
             //dividing by 0
             e = 1000;
         }
-        return e;
+        return 2 * e;
     }
 
     mutate() {

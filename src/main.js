@@ -9,7 +9,7 @@ let arms = [];
 
 let t;
 
-const ArmsPerGen = 12;
+const ArmsPerGen = 16;
 const survivors = ArmsPerGen / 2;
 let generation = 1;
 
