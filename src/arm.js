@@ -138,11 +138,8 @@ class Arm {
     mutate() {
         let clone = _.cloneDeep(this);
 
-        if (random() < 0.5) {
-            clone.theta1Tree.mutate();
-        } else {
-            clone.theta2Tree.mutate();
-        }
+        clone.theta1Tree.mutate();
+        clone.theta2Tree.mutate();
 
         return clone;
     }

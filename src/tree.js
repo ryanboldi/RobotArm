@@ -3,7 +3,7 @@ class Tree {
         this.functions = ['+', '-', '/', '*'];
         // this.semifunctions = ['min', 'max'];
         this.semiterminals = ['sin', 'cos'];
-        this.terminals = ['t', '0.5', '-0.5', '2'];
+        this.terminals = ['t', 't', '-1', '2', '1', '0.5', '4'];
 
         this.equation = this.getRandomEquation();
         //console.log(this.equation);

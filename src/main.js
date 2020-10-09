@@ -9,7 +9,7 @@ let arms = [];
 
 let t;
 
-const ArmsPerGen = 32;
+const ArmsPerGen = 6;
 const crossoverProportion = 3; // 1/this = amount of crossover
 const survivors = ArmsPerGen / 2;
 let generation = 1;
@@ -63,6 +63,9 @@ function draw() {
             console.log("Wait for first generation to finish before viewing bests");
         } else {
             currentShowing.draw(true);
+            textSize(15);
+            text(currentShowing.theta1Tree.equation, 200, 600);
+            text(currentShowing.theta2Tree.equation, 200, 650);
         }
 
         for (let i = 0; i < ArmsPerGen; i++) { arms[i].draw(false); }
