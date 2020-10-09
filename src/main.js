@@ -223,7 +223,7 @@ function DiscreteFrechet(path1, path2) {
 
     C[0] = distance(a[0], b[0]);
 
-    console.log(C);
+    //console.log(C);
 
     for (j = 1; j < dim; j++) {
         C[j] = Math.max(C[j - 1], distance(a[0], b[j]));
@@ -232,8 +232,6 @@ function DiscreteFrechet(path1, path2) {
     for (i = 1; i < dim; i++) {
         C[i * dim] = Math.max(C[(i - 1) * dim], distance(a[i], b[0]));
     }
-
-
 
     for (i = 1; i < dim; i++) {
         for (j = 1; j < dim; j++) {

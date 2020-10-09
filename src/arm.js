@@ -103,11 +103,11 @@ class Arm {
             if (this.path.length == userDrawnVertices.length) {
                 //calculate fitness of this creature, 
                 this.moving = false;
-                this.fitness = getTotalPathDifference(userDrawnVertices, this.path);
+                this.fitness = DiscreteFrechet(userDrawnVertices, this.path);
                 if (isNaN(this.fitness)) {
                     this.fitness = Infinity;
                 }
-                //console.log(this.fitness);
+                console.log(this.fitness);
             }
         }
         this.timeCounter++;
