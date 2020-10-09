@@ -47,24 +47,12 @@ class Tree {
     }
 
     mutate() {
+        let notMutated = true;
         //mutates the trees by changing the terminal nodes and subterminals etc
         //console.log(this.equation);
 
         let mutationRan = random();
-        if (mutationRan < this.depthMutRate) {
-            //chance we change a t into a new function
-            if (this.equation.includes('t') == true) {
-                //find all ts and replace a random one with a new function
-                let indexes = [...this.equation.matchAll(new RegExp('t', 'gi'))].map(a => a.index);
-                //console.log(indexes);
-                let indexPixed = random(indexes);
-                let arr = this.equation.split('');
-                arr.splice(indexPixed, 1, this.getRandomEquation().toString());
-                this.equation = arr.join('');
-                console.log(`added more depth mutation -> ${this.equation}`);
-                return _.cloneDeep(this);
-            }
-        } else if (mutationRan < this.semiTermMutRate) {
+        if (mutationRan < this.semiTermMutRate) {
             //10% chance we replace one function with another
             let semiTerminalsFound = [];
             for (let i = 0; i < this.semiterminals.length; i++) {
@@ -87,6 +75,7 @@ class Tree {
                 arr.splice(indexPicked, semiTerminalPicked.length, random(this.semiterminals));
                 this.equation = arr.join('');
                 console.log(`Mutated random SemiTerminal -> ${this.equation}`);
+                notMutated = false;
                 return _.cloneDeep(this);
             }
 
@@ -114,6 +103,7 @@ class Tree {
                 arr.splice(indexPicked, functionPicked.length, random(this.functions));
                 this.equation = arr.join('');
                 //console.log(`Mutated random function -> ${this.equation}`);
+                notMutated = false;
                 return _.cloneDeep(this);
             }
         } else if (mutationRan < this.simplifyMutRate) {
@@ -126,6 +116,22 @@ class Tree {
 
                 this.equation = arr.join('');
                 //console.log(`Mutated Simplified -> ${this.equation} `);
+                notMutated = false;
+                return _.cloneDeep(this);
+            }
+        }
+        if (mutationRan < this.depthMutRate || notMutated == true) {
+            //chance we change a t into a new function
+            if (this.equation.includes('t') == true) {
+                //find all ts and replace a random one with a new function
+                let indexes = [...this.equation.matchAll(new RegExp('t', 'gi'))].map(a => a.index);
+                //console.log(indexes);
+                let indexPixed = random(indexes);
+                let arr = this.equation.split('');
+                arr.splice(indexPixed, 1, this.getRandomEquation().toString());
+                this.equation = arr.join('');
+                console.log(`added more depth mutation -> ${this.equation}`);
+                notMutated = false;
                 return _.cloneDeep(this);
             }
         }

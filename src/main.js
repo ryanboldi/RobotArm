@@ -9,7 +9,8 @@ let arms = [];
 
 let t;
 
-const ArmsPerGen = 16;
+const ArmsPerGen = 32;
+const crossoverProportion = 3; // 1/this = amount of crossover
 const survivors = ArmsPerGen / 2;
 let generation = 1;
 
@@ -95,7 +96,7 @@ function NewGeneration() {
     let childrenArms = [];
     //half children made from crossover
     if (ArmsPerGen > 1) {
-        for (let i = 0; i < floor(ArmsPerGen / 2); i++) {
+        for (let i = 0; i < floor(ArmsPerGen / 3); i++) {
             let localParents = _.cloneDeep(parentArms);
             let parentIndex = floor(random(localParents.length));
             let parent1 = localParents.splice(parentIndex, 1)[0];
