@@ -3,7 +3,7 @@ class Tree {
         this.functions = ['+', '-', '/', '*'];
         // this.semifunctions = ['min', 'max'];
         this.semiterminals = ['sin', 'cos'];
-        this.terminals = ['t', 't', '-1', '2', '1', '0.5', '4'];
+        this.terminals = ['t', 't', '1', '2'];
 
         this.equation = this.getRandomEquation();
         //console.log(this.equation);
@@ -121,19 +121,25 @@ class Tree {
             }
         }
         if (mutationRan < this.depthMutRate || notMutated == true) {
-            //chance we change a t into a new function
-            if (this.equation.includes('t') == true) {
+            let indexes = [];
+            //chance we change a terminal into a new function
+            for (let i = 0; i < this.terminals.length; i++){
+            if (this.equation.includes(this.terminals[i]) == true) {
                 //find all ts and replace a random one with a new function
-                let indexes = [...this.equation.matchAll(new RegExp('t', 'gi'))].map(a => a.index);
-                //console.log(indexes);
-                let indexPixed = random(indexes);
-                let arr = this.equation.split('');
-                arr.splice(indexPixed, 1, this.getRandomEquation().toString());
-                this.equation = arr.join('');
-                console.log(`added more depth mutation -> ${this.equation}`);
-                notMutated = false;
-                return _.cloneDeep(this);
+                let newIndexes = [...this.equation.matchAll(new RegExp(this.terminals[i], 'gi'))].map(a => a.index);
+                for (let j = 0; j < newIndexes.length; j++){
+                    indexes.push(newIndexes[j]);
+                }
             }
+        } 
+        //console.log(indexes);
+        let indexPixed = random(indexes);
+        let arr = this.equation.split('');
+        arr.splice(indexPixed, 1, this.getRandomEquation().toString());
+        this.equation = arr.join('');
+        console.log(`added more depth mutation -> ${this.equation}`);
+        notMutated = false;
+        return _.cloneDeep(this);
         }
         return _.cloneDeep(this);
     }
