@@ -4,7 +4,7 @@ class Arm {
         this.armSegLength = 200;
         this.armSegWidth = 20;
 
-        this.maxSpeed = 0.1; //radians per second
+        this.maxSpeed = 0.05; //radians per second
 
         this.theta1 = 0;
         this.theta1Tree = new Tree();
