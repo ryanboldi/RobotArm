@@ -28,17 +28,17 @@ class Tree {
 
         if (term1Rand < 0.4) {
             t1 = 't'
-        } else if (term1Rand < 0.6) {
-            t1 = `${random(this.semiterminals)}(${random(this.terminals)})`
         } else if (term1Rand < 1) {
+            t1 = `${random(this.semiterminals)}(${random(this.terminals)})`
+        } else if (term1Rand < 1) { //DISABLED EXTRA DEPTH
             t1 = `${this.getRandomEquation().toString()}`;
         }
 
         if (term2Rand < 0.4) {
             t2 = 't'
-        } else if (term2Rand < 0.6) {
-            t2 = `${random(this.semiterminals)}(${random(this.terminals)})`
         } else if (term2Rand < 1) {
+            t2 = `${random(this.semiterminals)}(${random(this.terminals)})`
+        } else if (term2Rand < 1) { // DISABLED EXTRA DEPTH
             t2 = `${this.getRandomEquation().toString()}`;
         }
 
