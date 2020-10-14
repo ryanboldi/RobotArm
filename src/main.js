@@ -249,3 +249,13 @@ function DiscreteFrechet(path1, path2) {
     return C[C.length - 1];
 }
 
+//finds all numbers in a given string including multi digit numbers,
+//returns array of indexes along with the length of the numbers
+function findAllNumbers(str){
+    let numbers = []
+    for (let i = 0; i< str.length;i++){
+        if (!isNaN(parsefloat(str[i]))){
+
+        }
+    }
+}
