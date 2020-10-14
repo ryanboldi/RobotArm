@@ -121,11 +121,21 @@ class Tree {
             }
         } else if (mutationRandom < this.terminalMutRate){
             let allNumbers = findAllNumbers(this.equation);
-            let indexes = allNumbers.numbers;
+            let numbers = allNumbers.numbers;
+            let indexes = allNumbers.indexes;
             let lengths = allNumbers.lengths;
 
             let randomIndex = random(indexes);
-            
+            let mutatedNumber = numbers[randomIndex] + (Math.round(Math.random(-2,2) * 10)/10);
+
+            console.log(randomIndex, numbers);
+
+            let arr = this.equation.split('');
+            arr.splice(randomIndex, lengths[randomIndex], mutatedNumber.toString());
+            this.equation = arr.join('');
+            console.log(`changed terminal number -> ${this.equation}`);
+            notMutated = false;
+            return _.cloneDeep(this);
         }
         if (mutationRandom < this.depthMutRate || notMutated == true) {
             let indexes = [];

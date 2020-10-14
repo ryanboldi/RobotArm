@@ -9,7 +9,7 @@ let arms = [];
 
 let t;
 
-const ArmsPerGen = 160;
+const ArmsPerGen = 2;
 const crossoverProportion = 3; // 1/this = amount of crossover
 const survivors = ArmsPerGen / 2;
 let generation = 1;
@@ -253,7 +253,7 @@ function DiscreteFrechet(path1, path2) {
 //returns array of indexes along with the length of the numbers
 function findAllNumbers(str){
     let arr = str.split('');
-    console.log(arr);
+    //console.log(arr);
 
     let numbers = [];
     let indexes = []
@@ -275,8 +275,12 @@ function findAllNumbers(str){
                 lengths.push(length);
             }
             length = 0;
+            numSoFar = [];
         }
     }
+    numbers.push(parseFloat(numSoFar.join('')));
+    indexes.push(firstDigit);
+    lengths.push(length);
     //console.log(numbers, lengths);
     return {numbers: numbers, indexes: indexes, lengths: lengths};
 }
