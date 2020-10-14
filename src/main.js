@@ -9,7 +9,7 @@ let arms = [];
 
 let t;
 
-const ArmsPerGen = 2;
+const ArmsPerGen = 6;
 const crossoverProportion = 3; // 1/this = amount of crossover
 const survivors = ArmsPerGen / 2;
 let generation = 1;
