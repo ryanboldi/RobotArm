@@ -9,7 +9,7 @@ let arms = [];
 
 let t;
 
-const ArmsPerGen = 16;
+const ArmsPerGen = 160;
 const crossoverProportion = 3; // 1/this = amount of crossover
 const survivors = ArmsPerGen / 2;
 let generation = 1;
@@ -255,23 +255,28 @@ function findAllNumbers(str){
     let arr = str.split('');
     console.log(arr);
 
-    let numbers = []
+    let numbers = [];
+    let indexes = []
     let lengths = []
+
 
     let firstDigit = 0;
     let length = 0;
+    let numSoFar = [];
     for (let i = 0; i< arr.length;i++){
         if (!isNaN(arr[i]) || arr[i] == "."){
             if (length == 0) firstDigit = i;
+            numSoFar.push(arr[i]);
             length += 1;
         } else {
             if (length > 0 ){
-                numbers.push(firstDigit);
+                numbers.push(parseFloat(numSoFar.join('')));
+                indexes.push(firstDigit);
                 lengths.push(length);
             }
             length = 0;
         }
     }
-
-    console.log(numbers, lengths);
+    //console.log(numbers, lengths);
+    return {numbers: numbers, indexes: indexes, lengths: lengths};
 }

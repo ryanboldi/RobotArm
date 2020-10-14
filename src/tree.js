@@ -8,11 +8,11 @@ class Tree {
         this.equation = this.getRandomEquation();
         //console.log(this.equation);
 
-        //MUST ADD TO 1 vvv
-        this.depthMutRate = 0.5;
-        this.semiTermMutRate = 0.2;
-        this.funcMutRate = 0.2;
-        this.simplifyMutRate = 0.1;
+        this.semiTermMutRate = 0.1;
+        this.funcMutRate = 0.2 + this.semiTermMutRate;
+        this.simplifyMutRate = 0.1 + this.funcMutRate;
+        this.terminalMutRate = 0.1 + this.simplifyMutRate;
+        this.depthMutRate = 0.5 + this.terminalMutRate;
         //console.log(nerdamer(this.equation).text());
     }
 
@@ -50,9 +50,9 @@ class Tree {
         let notMutated = true;
         //mutates the trees by changing the terminal nodes and subterminals etc
         //console.log(this.equation);
-
-        let mutationRan = random();
-        if (mutationRan < this.semiTermMutRate) {
+        
+        let mutationRandom = random();
+        if (mutationRandom < this.semiTermMutRate) {
             //10% chance we replace one function with another
             let semiTerminalsFound = [];
             for (let i = 0; i < this.semiterminals.length; i++) {
@@ -79,7 +79,7 @@ class Tree {
                 return _.cloneDeep(this);
             }
 
-        } else if (mutationRan < this.funcMutRate) {
+        } else if (mutationRandom < this.funcMutRate) {
             //chance we change a random function (+ -> -);
             let functionsFound = [];
             for (let i = 0; i < this.functions.length; i++) {
@@ -106,7 +106,7 @@ class Tree {
                 notMutated = false;
                 return _.cloneDeep(this);
             }
-        } else if (mutationRan < this.simplifyMutRate) {
+        } else if (mutationRandom < this.simplifyMutRate) {
             if (this.equation.includes('(')) {
                 //replace a random bracketed segment with 't'
                 let randomStartEnd = randomBracketedExpression(this.equation);
@@ -119,27 +119,34 @@ class Tree {
                 notMutated = false;
                 return _.cloneDeep(this);
             }
+        } else if (mutationRandom < this.terminalMutRate){
+            let allNumbers = findAllNumbers(this.equation);
+            let indexes = allNumbers.numbers;
+            let lengths = allNumbers.lengths;
+
+            let randomIndex = random(indexes);
+            
         }
-        if (mutationRan < this.depthMutRate || notMutated == true) {
+        if (mutationRandom < this.depthMutRate || notMutated == true) {
             let indexes = [];
             //chance we change a terminal into a new function
             for (let i = 0; i < this.terminals.length; i++){
-            if (this.equation.includes(this.terminals[i]) == true) {
+                if (this.equation.includes(this.terminals[i]) == true) {
                 //find all ts and replace a random one with a new function
-                let newIndexes = [...this.equation.matchAll(new RegExp(this.terminals[i], 'gi'))].map(a => a.index);
-                for (let j = 0; j < newIndexes.length; j++){
-                    indexes.push(newIndexes[j]);
+                    let newIndexes = [...this.equation.matchAll(new RegExp(this.terminals[i], 'gi'))].map(a => a.index);
+                    for (let j = 0; j < newIndexes.length; j++){
+                        indexes.push(newIndexes[j]);
+                    }
                 }
-            }
-        } 
-        //console.log(indexes);
-        let indexPixed = random(indexes);
-        let arr = this.equation.split('');
-        arr.splice(indexPixed, 1, this.getRandomEquation().toString());
-        this.equation = arr.join('');
-        console.log(`added more depth mutation -> ${this.equation}`);
-        notMutated = false;
-        return _.cloneDeep(this);
+            } 
+            //console.log(indexes);
+            let indexPixed = random(indexes);
+            let arr = this.equation.split('');
+            arr.splice(indexPixed, 1, this.getRandomEquation().toString());
+            this.equation = arr.join('');
+            console.log(`added more depth mutation -> ${this.equation}`);
+            notMutated = false;
+            return _.cloneDeep(this);
         }
         return _.cloneDeep(this);
     }
