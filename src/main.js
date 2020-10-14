@@ -252,10 +252,26 @@ function DiscreteFrechet(path1, path2) {
 //finds all numbers in a given string including multi digit numbers,
 //returns array of indexes along with the length of the numbers
 function findAllNumbers(str){
-    let numbers = []
-    for (let i = 0; i< str.length;i++){
-        if (!isNaN(parsefloat(str[i]))){
+    let arr = str.split('');
+    console.log(arr);
 
+    let numbers = []
+    let lengths = []
+
+    let firstDigit = 0;
+    let length = 0;
+    for (let i = 0; i< arr.length;i++){
+        if (!isNaN(arr[i]) || arr[i] == "."){
+            if (length == 0) firstDigit = i;
+            length += 1;
+        } else {
+            if (length > 0 ){
+                numbers.push(firstDigit);
+                lengths.push(length);
+            }
+            length = 0;
         }
     }
+
+    console.log(numbers, lengths);
 }
