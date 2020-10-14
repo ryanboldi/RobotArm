@@ -265,7 +265,7 @@ function findAllNumbers(str){
     let numSoFar = [];
     for (let i = 0; i< arr.length;i++){
         if ((!isNaN(arr[i]) || arr[i] == ".") && (arr[i] !== " ")){
-            console.log(arr[i]);
+            //console.log(arr[i]);
             if (length == 0) firstDigit = i;
             numSoFar.push(arr[i]);
             length += 1;
