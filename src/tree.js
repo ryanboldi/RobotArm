@@ -121,14 +121,15 @@ class Tree {
             }
         } else if (mutationRandom < this.terminalMutRate){
             let allNumbers = findAllNumbers(this.equation);
+            //console.log(allNumbers);
             let numbers = allNumbers.numbers;
             let indexes = allNumbers.indexes;
             let lengths = allNumbers.lengths;
 
-            let randomIndex = random(indexes);
+            let randomIndex = floor(random(indexes.length));
             let mutatedNumber = numbers[randomIndex] + (Math.round(Math.random(-2,2) * 10)/10);
 
-            console.log(randomIndex, numbers);
+            //console.log(numbers[randomIndex], mutatedNumber);
 
             let arr = this.equation.split('');
             arr.splice(randomIndex, lengths[randomIndex], mutatedNumber.toString());

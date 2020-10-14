@@ -264,12 +264,13 @@ function findAllNumbers(str){
     let length = 0;
     let numSoFar = [];
     for (let i = 0; i< arr.length;i++){
-        if (!isNaN(arr[i]) || arr[i] == "."){
+        if ((!isNaN(arr[i]) || arr[i] == ".") && (arr[i] !== " ")){
+            console.log(arr[i]);
             if (length == 0) firstDigit = i;
             numSoFar.push(arr[i]);
             length += 1;
         } else {
-            if (length > 0 ){
+            if (length > 0){
                 numbers.push(parseFloat(numSoFar.join('')));
                 indexes.push(firstDigit);
                 lengths.push(length);
@@ -278,9 +279,11 @@ function findAllNumbers(str){
             numSoFar = [];
         }
     }
-    numbers.push(parseFloat(numSoFar.join('')));
-    indexes.push(firstDigit);
-    lengths.push(length);
+    if (numSoFar.length > 0){
+        numbers.push(parseFloat(numSoFar.join('')));
+        indexes.push(firstDigit);
+        lengths.push(length);
+    }
     //console.log(numbers, lengths);
     return {numbers: numbers, indexes: indexes, lengths: lengths};
 }

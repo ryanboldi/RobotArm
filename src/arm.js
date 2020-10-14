@@ -143,9 +143,4 @@ class Arm {
 
         return clone;
     }
-
-    computeFitness() {
-        //take this.path, somehow compare it to the userdrawn vertices to get a closeness index.
-
-    }
 }
