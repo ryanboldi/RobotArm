@@ -9,7 +9,7 @@ let arms = [];
 
 let t;
 
-const ArmsPerGen = 6;
+const ArmsPerGen = 16;
 const crossoverProportion = 3; // 1/this = amount of crossover
 const survivors = ArmsPerGen / 2;
 let generation = 1;
@@ -251,7 +251,7 @@ function DiscreteFrechet(path1, path2) {
 
 //finds all numbers in a given string including multi digit numbers,
 //returns array of indexes along with the length of the numbers
-function findAllNumbers(str){
+function findAllNumbers(str) {
     let arr = str.split('');
     //console.log(arr);
 
@@ -263,14 +263,14 @@ function findAllNumbers(str){
     let firstDigit = 0;
     let length = 0;
     let numSoFar = [];
-    for (let i = 0; i< arr.length;i++){
-        if ((!isNaN(arr[i]) || arr[i] == ".") && (arr[i] !== " ")){
+    for (let i = 0; i < arr.length; i++) {
+        if ((!isNaN(arr[i]) || arr[i] == ".") && (arr[i] !== " ")) {
             //console.log(arr[i]);
             if (length == 0) firstDigit = i;
             numSoFar.push(arr[i]);
             length += 1;
         } else {
-            if (length > 0){
+            if (length > 0) {
                 numbers.push(parseFloat(numSoFar.join('')));
                 indexes.push(firstDigit);
                 lengths.push(length);
@@ -279,11 +279,11 @@ function findAllNumbers(str){
             numSoFar = [];
         }
     }
-    if (numSoFar.length > 0){
+    if (numSoFar.length > 0) {
         numbers.push(parseFloat(numSoFar.join('')));
         indexes.push(firstDigit);
         lengths.push(length);
     }
     //console.log(numbers, lengths);
-    return {numbers: numbers, indexes: indexes, lengths: lengths};
+    return { numbers: numbers, indexes: indexes, lengths: lengths };
 }
