@@ -2,8 +2,8 @@ class Tree {
     constructor() {
         this.functions = ['+', '-', '/', '*'];
         // this.semifunctions = ['min', 'max'];
-        this.semiterminals = ['sin', 'cos'];
-        this.terminals = ['t', 't', '1', '2'];
+        this.semiterminals = ['sin', 'cos', 'tan'];
+        this.terminals = ['t', 't', '1', '2', '0.5'];
 
         this.equation = this.getRandomEquation();
         //console.log(this.equation);
@@ -50,7 +50,7 @@ class Tree {
         let notMutated = true;
         //mutates the trees by changing the terminal nodes and subterminals etc
         //console.log(this.equation);
-        
+
         let mutationRandom = random();
         if (mutationRandom < this.semiTermMutRate) {
             //10% chance we replace one function with another
@@ -119,7 +119,7 @@ class Tree {
                 notMutated = false;
                 return _.cloneDeep(this);
             }
-        } else if (mutationRandom < this.terminalMutRate){
+        } else if (mutationRandom < this.terminalMutRate) {
             let allNumbers = findAllNumbers(this.equation);
             //console.log(allNumbers);
             let numbers = allNumbers.numbers;
@@ -127,7 +127,7 @@ class Tree {
             let lengths = allNumbers.lengths;
 
             let randomIndex = floor(random(indexes.length));
-            let mutatedNumber = numbers[randomIndex] + (Math.round(Math.random(-2,2) * 10)/10);
+            let mutatedNumber = numbers[randomIndex] + (Math.round(Math.random(-2, 2) * 10) / 10);
 
             //console.log(numbers[randomIndex], mutatedNumber);
 
@@ -141,15 +141,15 @@ class Tree {
         if (mutationRandom < this.depthMutRate || notMutated == true) {
             let indexes = [];
             //chance we change a terminal into a new function
-            for (let i = 0; i < this.terminals.length; i++){
+            for (let i = 0; i < this.terminals.length; i++) {
                 if (this.equation.includes(this.terminals[i]) == true) {
-                //find all ts and replace a random one with a new function
+                    //find all ts and replace a random one with a new function
                     let newIndexes = [...this.equation.matchAll(new RegExp(this.terminals[i], 'gi'))].map(a => a.index);
-                    for (let j = 0; j < newIndexes.length; j++){
+                    for (let j = 0; j < newIndexes.length; j++) {
                         indexes.push(newIndexes[j]);
                     }
                 }
-            } 
+            }
             //console.log(indexes);
             let indexPixed = random(indexes);
             let arr = this.equation.split('');
